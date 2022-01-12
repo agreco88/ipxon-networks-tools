@@ -1,10 +1,17 @@
-// tailwind.config.js
+const colors = require("tailwindcss/colors")
+
 module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   future: {},
   purge: [],
   theme: {
-    extend: {},
+    extend: {
+      color: {
+        rose: colors.rose,
+      },
+    },
   },
+
   variants: {},
-  plugins: [],
+  plugins: [require("daisyui")],
 }

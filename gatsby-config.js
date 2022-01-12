@@ -1,11 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby TailwindCSS Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter with TailwindCSS and common dev tools. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@kosvrouvas`,
-  },
-  flags: {
-    THE_FLAG: false
+    title: `IPXON IP tool`,
+    description: `Insntantly access your IP and support tools`,
+    author: `@conexuminc`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -14,6 +11,14 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /images/,
+        },
       },
     },
     `gatsby-plugin-image`,
@@ -28,7 +33,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon-ipxon.svg`, // This path is relative to the root of the site.
       },
     },
     {
@@ -66,8 +71,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-postcss`,
       options: {
-        postCssPlugins: [require("tailwindcss"), require("autoprefixer")]
-      }
+        postCssPlugins: [require("tailwindcss"), require("autoprefixer")],
+      },
     },
     {
       resolve: `gatsby-plugin-purgecss`,
@@ -76,6 +81,6 @@ module.exports = {
         develop: false,
         tailwind: true,
       },
-    }
+    },
   ],
 }

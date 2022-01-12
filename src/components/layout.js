@@ -23,21 +23,31 @@ const Layout = ({ children }) => {
     }
   `)
 
+  const date = new Date()
+  const [month, day, year] = [
+    date.getMonth(),
+    date.getDate(),
+    date.getFullYear(),
+  ]
+
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
+      <div>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+        <footer className="container pb-8 mx-auto text-white flex justify-between text-xs">
+          <div>
+            Copyright © 2021 IPXON |{" "}
+            <a
+              href="https://www.gatsbyjs.org"
+              className="font-extrabold text-white"
+            >
+              Terminos y condiciones
+            </a>
+          </div>
+          <div>
+            {month}/{day}/{year}
+          </div>
         </footer>
       </div>
     </>
