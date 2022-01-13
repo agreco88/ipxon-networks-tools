@@ -3,8 +3,10 @@ import PropTypes from "prop-types"
 
 const Radiobutton = ({ name, value, handleCommandChange }) => {
   return (
-    <>
-      <span className="label-text">{value.toUpperCase()}</span>
+    <div className="flex items-center gap-2">
+      <span className="label-text text-white cursor-default">
+        {value.toUpperCase()}
+      </span>
       {value == "ping" ? (
         <input
           type="radio"
@@ -25,7 +27,7 @@ const Radiobutton = ({ name, value, handleCommandChange }) => {
           onClick={handleCommandChange}
         />
       )}
-    </>
+    </div>
   )
 }
 

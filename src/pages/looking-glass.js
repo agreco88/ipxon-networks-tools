@@ -28,12 +28,13 @@ export default function LookingGlass() {
   const [destination, setDestination] = useState("1.1.1.1")
   const [packetCount, setPacketCount] = useState(10)
   const [response, setResponse] = useState("")
-  const [tracerouteTarget, setTracerouteTarget] = useState("")
-  const [tracerouteResolver, setTracerouteResolver] = useState(false)
-  const [tracerouteDnsLookup, setTracerouteDnsLookup] = useState(false)
-  const [tracerouteShowIps, setTracerouteShowIps] = useState(false)
+  const [DnsResolver, setDnsResolver] = useState(true)
+  const [AsLookup, setAsLookup] = useState(true)
+  const [ShowIps, setShowIps] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const getSites = async () => {
+    setLoading(true)
     await axios
       .get(`https://api.ipxon.net/public/lg/sites`, {
         headers: {
@@ -47,36 +48,84 @@ export default function LookingGlass() {
       .catch(error => {
         console.log(error)
       })
+      .finally(setLoading(false))
   }
 
-  const pingLocation = async event => {
+  const executeCommand = async event => {
+    setLoading(true)
     event.preventDefault()
-    await axios
-      .post(
-        `https://api.ipxon.net/public/lg/ping?source=${site.id}&target=${destination}&captchatoken=${captchatoken}&count=${packetCount}
-      `,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then(response => {
-        console.log(response.data.result)
-        setResponse(response.data.result)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    switch (command) {
+      case "ping":
+        await axios
+          .post(
+            `https://api.ipxon.net/public/lg/ping?source=${site.id}&target=${destination}&captchatoken=${captchatoken}&count=${packetCount}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then(response => {
+            console.log("Ping response:", response.data.result)
+            setResponse(response.data.result)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+          .finally(setLoading(false))
+
+        break
+      case "mtr":
+        await axios
+          .post(
+            `https://api.ipxon.net/public/lg/mtr?source=${site.id}&target=${destination}&captchatoken=${captchatoken}&resolver=${DnsResolver}&aslookup=${AsLookup}&showips=${ShowIps}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then(response => {
+            console.log("MTR response:", response.data.result)
+            setResponse(response.data.result)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+          .finally(setLoading(false))
+        break
+      case "traceroute":
+        await axios
+          .post(
+            `https://api.ipxon.net/public/lg/traceroute?source=${site.id}&target=${destination}&captchatoken=${captchatoken}&resolver=${DnsResolver}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then(response => {
+            console.log("Traceroute response:", response.data.result)
+            setResponse(response.data.result)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+          .finally(setLoading(false))
+
+        break
+      default:
+      // code block
+    }
   }
 
-  function onChange(value) {
-    console.log("Captcha value:", value)
+  function onCaptchaChange(value) {
     setCaptchaToken(value)
   }
 
   const handleCommandChange = e => {
     setCommand(e.currentTarget.value)
+    setResponse("")
   }
 
   const handleDestinationChange = e => {
@@ -87,6 +136,18 @@ export default function LookingGlass() {
     setPacketCount(e.currentTarget.value)
   }
 
+  const handleDnsChange = e => {
+    setDnsResolver(e.target.checked)
+  }
+
+  const handleAsLookupChange = e => {
+    setAsLookup(e.target.checked)
+  }
+
+  const handleShowIpsChange = e => {
+    setShowIps(e.target.checked)
+  }
+
   useEffect(() => {
     getSites()
   }, [])
@@ -95,12 +156,9 @@ export default function LookingGlass() {
     <Layout>
       <SEO title="Looking glass" />
       <div className="text-white flex flex-col container mx-auto h-screen ">
-        <div class="grid grid-rows-5 col-span-4 grid-flow-col gap-4 h-screen">
-          <div class="col-span-2 row-span-3">
-            <form
-              onSubmit={pingLocation}
-              className="flex flex-col self-center gap-4 rounded-lg"
-            >
+        <div className="flex">
+          <form onSubmit={executeCommand} className="flex justify-center py-16">
+            <div className="flex flex-col self-center gap-8 rounded-lg transition-all">
               <div className="radiobuttons flex flex-col gap-3">
                 <label htmlFor="command">1. Command:</label>
                 <div className="flex gap-3 justify-start">
@@ -116,7 +174,7 @@ export default function LookingGlass() {
                   />
                   <Radiobutton
                     name={"command"}
-                    value={"mrt"}
+                    value={"mtr"}
                     handleCommandChange={handleCommandChange}
                   />
                 </div>
@@ -139,19 +197,34 @@ export default function LookingGlass() {
 
               {command ? (
                 command == "traceroute" ? (
-                  <div className="flex flex-col md:flex-row gap-8">
-                    <div className="flex text-gray-500 gap-4 w-1/2 md:w-2/4">
-                      <Input
-                        inputLabel={"Target:"}
-                        inputValue={tracerouteTarget}
-                        inputPlaceholder={"1.1.1.1"}
-                        onChangeHandler={handlePacketCountChange}
-                      />
-                    </div>
-                    <div className="flex self-center justify-center">
-                      {" "}
-                      <Toggle />
-                    </div>
+                  <div className="flex flex-col gap-4">
+                    <Toggle
+                      label={"Reverse DNS resolver"}
+                      toggleValue={DnsResolver}
+                      onChangeHandler={handleDnsChange}
+                    />
+                  </div>
+                ) : null
+              ) : null}
+
+              {command ? (
+                command == "mtr" ? (
+                  <div className="flex flex-col gap-4">
+                    <Toggle
+                      label={"Reverse DNS resolver"}
+                      value={DnsResolver}
+                      onChangeHandler={handleDnsChange}
+                    />
+                    <Toggle
+                      label={"Lookup ASN"}
+                      value={AsLookup}
+                      onChangeHandler={handleAsLookupChange}
+                    />
+                    <Toggle
+                      label={"Show IPs"}
+                      value={ShowIps}
+                      onChangeHandler={handleShowIpsChange}
+                    />
                   </div>
                 ) : null
               ) : null}
@@ -204,33 +277,35 @@ export default function LookingGlass() {
                       </button>
                     )}
                   </div>
-                  <div className="flex pt-4">
-                    <ReCAPTCHA
-                      sitekey="6Lcyv9gdAAAAAJ1s607OJy87WKY2g0s8xdufNRSW"
-                      onChange={onChange}
-                      theme="dark"
-                      className="h-10"
-                    />
-                  </div>
+                </div>
+                <div className="flex justify-center">
+                  <ReCAPTCHA
+                    sitekey="6Lcyv9gdAAAAAJ1s607OJy87WKY2g0s8xdufNRSW"
+                    onChange={onCaptchaChange}
+                    theme="dark"
+                  />
                 </div>
               </div>
-            </form>
-          </div>
-          <div class="col-span-2 row-span-2">
-            <div className="result flex w-full flex-col gap-4 bg-gradient-to-t from-black to-pink-700 mt-4 mb-12 p-8 rounded-lg">
-              <h2 className="text-4xl uppercase">{command} Results:</h2>
-              {response ? (
-                <ul className="text-white w-1/2">
-                  {response.map((line, lineIdx) => (
-                    <li key={lineIdx}>{line}</li>
-                  ))}
-                </ul>
-              ) : (
-                <h1>NO RESPONSE YET</h1>
-              )}
             </div>
+          </form>
+          <div className="flex bg-gray-400 w-full m-16 mr-0 rounded-lg">
+            TODO MAP
           </div>
-          <div class="col-span-2 row-span-5 bg-gray-400">MAP SPACE</div>
+        </div>
+        <div className="flex">
+          <div className="result flex w-full flex-col gap-4 bg-gradient-to-t from-black to-pink-700 mt-4 mb-12 p-8 rounded-lg">
+            <h2 className="text-4xl uppercase">{command} Results:</h2>
+            {loading ? <p>Loading</p> : null}
+            {response ? (
+              <ul className="text-white w-1/2">
+                {response.map((line, lineIdx) => (
+                  <li key={lineIdx}>{line}</li>
+                ))}
+              </ul>
+            ) : (
+              <h1>NO RESPONSE YET</h1>
+            )}
+          </div>
         </div>
       </div>
     </Layout>

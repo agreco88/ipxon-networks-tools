@@ -1,6 +1,6 @@
 import React, { Fragment } from "react"
 import { Listbox, Transition } from "@headlessui/react"
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid"
+import { SelectorIcon } from "@heroicons/react/solid"
 import Flag from "react-world-flags"
 
 export default function Dropdown({ sites, site, onChangeHandler }) {
@@ -43,28 +43,29 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
                 {({ selected, active }) => (
                   <>
                     <span
-                      className={`flex gap-2 items-center ${
+                      className={`flex gap-2 w-full  justify-between items-center ${
                         selected ? "font-medium" : "font-normal"
                       } block truncate`}
                     >
-                      <Flag
-                        className="h-6 w-6"
-                        margin="0"
-                        code={site.flag}
-                        key={site.flag}
-                      />{" "}
-                      {site.desc}
-                    </span>
-                    {selected ? (
-                      <span
-                        className={`${
-                          active ? "text-amber-600" : "text-amber-600"
-                        }
-                                          absolute inset-y-0 left-0 flex items-center pl-3`}
-                      >
-                        <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                      <span className="flex gap-4">
+                        <Flag
+                          className="h-6 w-6"
+                          margin="0"
+                          code={site.flag}
+                          key={site.flag}
+                        />
+
+                        <span className="self-center">{site.desc}</span>
                       </span>
-                    ) : null}
+
+                      {site.ipv6 ? (
+                        <span className="flex bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 text-transparent font-semibold">
+                          IPV6
+                        </span>
+                      ) : (
+                        <span className="flex"></span>
+                      )}
+                    </span>
                   </>
                 )}
               </Listbox.Option>
