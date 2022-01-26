@@ -29,24 +29,27 @@ const Layout = ({ children }) => {
     date.getDate(),
     date.getFullYear(),
   ]
+  console.log("Month:", [month])
+  console.log("Day:", [day])
+  console.log("Year:", [year])
 
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div>
         <main>{children}</main>
-        <footer className="container pb-8 mx-auto text-white flex justify-between text-xs">
+        <footer className="h-10vh items-center container mx-auto text-white flex justify-between text-xs">
           <div>
             Copyright © 2021 IPXON |{" "}
             <a
-              href="https://www.gatsbyjs.org"
+              href="https://www.ipxon.com/"
               className="font-extrabold text-white"
             >
               Terminos y condiciones
             </a>
           </div>
           <div>
-            {month}/{day}/{year}
+            {day}/{month == "0" ? month + 1 : month}/{year}
           </div>
         </footer>
       </div>

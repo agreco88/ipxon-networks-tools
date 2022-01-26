@@ -1,10 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import ReCAPTCHA from "react-google-recaptcha"
-import Flag from "react-world-flags"
-
 import axios from "axios"
-import { Listbox, Transition } from "@headlessui/react"
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -12,7 +8,18 @@ import Radiobutton from "../components/Form/Radiobutton"
 import Dropdown from "../components/Dropdown"
 import Input from "../components/Form/Input"
 import Toggle from "../components/Form/Toggle"
-// import CommandArea from "../components/CommandArea"
+
+import { css } from "@emotion/react"
+import GridLoader from "react-spinners/GridLoader"
+import BeatLoader from "react-spinners/BeatLoader"
+
+import Map from "../components/Map"
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`
 
 export default function LookingGlass() {
   const [captchatoken, setCaptchaToken] = useState("")
@@ -25,16 +32,20 @@ export default function LookingGlass() {
     desc: "Argentina - Cordoba",
     ipv6: false,
   })
-  const [destination, setDestination] = useState("1.1.1.1")
+  const [destination, setDestination] = useState("139.130.4.5")
+  const [destinationLatitude, setDestinationLatitude] = useState("")
+  const [destinationLongitude, setDestinationLongitude] = useState("")
   const [packetCount, setPacketCount] = useState(10)
   const [response, setResponse] = useState("")
-  const [DnsResolver, setDnsResolver] = useState(true)
-  const [AsLookup, setAsLookup] = useState(true)
-  const [ShowIps, setShowIps] = useState(true)
+  const [DnsResolver, setDnsResolver] = useState(false)
+  const [AsLookup, setAsLookup] = useState(false)
+  const [ShowIps, setShowIps] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [dropdownSites, setDropdownSites] = useState()
+  const [loadingIp, setLoadingIp] = useState(false)
 
   const getSites = async () => {
-    setLoading(true)
     await axios
       .get(`https://api.ipxon.net/public/lg/sites`, {
         headers: {
@@ -43,19 +54,22 @@ export default function LookingGlass() {
       })
       .then(response => {
         setSites(response.data)
+        setDropdownSites(response.data)
         console.log("Fetched sites:", response.data)
       })
       .catch(error => {
         console.log(error)
+        setErrorMessage(error)
       })
-      .finally(setLoading(false))
   }
 
   const executeCommand = async event => {
-    setLoading(true)
     event.preventDefault()
+    setResponse(null)
     switch (command) {
       case "ping":
+        setErrorMessage("")
+        setLoading(true)
         await axios
           .post(
             `https://api.ipxon.net/public/lg/ping?source=${site.id}&target=${destination}&captchatoken=${captchatoken}&count=${packetCount}`,
@@ -68,14 +82,23 @@ export default function LookingGlass() {
           .then(response => {
             console.log("Ping response:", response.data.result)
             setResponse(response.data.result)
+            setLoading(false)
           })
-          .catch(error => {
-            console.log(error)
+          .catch(function (error) {
+            if (error.message.includes("400")) {
+              //TODO TOKEN REFRESH HERE
+              window.grecaptcha.reset()
+              setErrorMessage(
+                "Recaptcha expired. Please click on the captcha again and retry."
+              )
+              setLoading(false)
+              //
+            }
           })
-          .finally(setLoading(false))
-
         break
       case "mtr":
+        setErrorMessage("")
+        setLoading(true)
         await axios
           .post(
             `https://api.ipxon.net/public/lg/mtr?source=${site.id}&target=${destination}&captchatoken=${captchatoken}&resolver=${DnsResolver}&aslookup=${AsLookup}&showips=${ShowIps}`,
@@ -88,13 +111,23 @@ export default function LookingGlass() {
           .then(response => {
             console.log("MTR response:", response.data.result)
             setResponse(response.data.result)
+            setLoading(false)
           })
-          .catch(error => {
-            console.log(error)
+          .catch(function (error) {
+            if (error.message.includes("400")) {
+              //TODO TOKEN REFRESH HERE
+              window.grecaptcha.reset()
+              setErrorMessage(
+                "Recaptcha expired. Please click on the captcha again and retry."
+              )
+              setLoading(false)
+              //
+            }
           })
-          .finally(setLoading(false))
         break
       case "traceroute":
+        setErrorMessage("")
+        setLoading(true)
         await axios
           .post(
             `https://api.ipxon.net/public/lg/traceroute?source=${site.id}&target=${destination}&captchatoken=${captchatoken}&resolver=${DnsResolver}`,
@@ -107,12 +140,19 @@ export default function LookingGlass() {
           .then(response => {
             console.log("Traceroute response:", response.data.result)
             setResponse(response.data.result)
+            setLoading(false)
           })
-          .catch(error => {
-            console.log(error)
+          .catch(function (error) {
+            if (error.message.includes("400")) {
+              //TODO TOKEN REFRESH HERE
+              window.grecaptcha.reset()
+              setErrorMessage(
+                "Recaptcha expired. Please click on the captcha again and retry."
+              )
+              setLoading(false)
+              //
+            }
           })
-          .finally(setLoading(false))
-
         break
       default:
       // code block
@@ -130,6 +170,13 @@ export default function LookingGlass() {
 
   const handleDestinationChange = e => {
     setDestination(e.currentTarget.value)
+  }
+
+  const getClientIp = async () => {
+    setLoadingIp(true)
+    const res = await axios.get("https://geolocation-db.com/json/")
+    setDestination(res.data.IPv4)
+    setLoadingIp(false)
   }
 
   const handlePacketCountChange = e => {
@@ -155,157 +202,198 @@ export default function LookingGlass() {
   return (
     <Layout>
       <SEO title="Looking glass" />
-      <div className="text-white flex flex-col container mx-auto h-screen ">
-        <div className="flex">
-          <form onSubmit={executeCommand} className="flex justify-center py-16">
-            <div className="flex flex-col self-center gap-8 rounded-lg transition-all">
-              <div className="radiobuttons flex flex-col gap-3">
-                <label htmlFor="command">1. Command:</label>
-                <div className="flex gap-3 justify-start">
-                  <Radiobutton
-                    name={"command"}
-                    value={"ping"}
-                    handleCommandChange={handleCommandChange}
-                  />
-                  <Radiobutton
-                    name={"command"}
-                    value={"traceroute"}
-                    handleCommandChange={handleCommandChange}
-                  />
-                  <Radiobutton
-                    name={"command"}
-                    value={"mtr"}
-                    handleCommandChange={handleCommandChange}
+      <div className="text-white items-center flex flex-col md:flex-row container mx-auto h-70vh md:h-40vh">
+        <form
+          onSubmit={executeCommand}
+          className="flex flex-col md:w-1/2 mt-8 gap-8 rounded-lg transition-all"
+        >
+          <div className="radiobuttons flex flex-col gap-3">
+            <label htmlFor="command" className="font-bold">
+              1. Command:
+            </label>
+            <div className="flex gap-3 justify-start">
+              <Radiobutton
+                name={"command"}
+                value={"ping"}
+                handleCommandChange={handleCommandChange}
+              />
+              <Radiobutton
+                name={"command"}
+                value={"traceroute"}
+                handleCommandChange={handleCommandChange}
+              />
+              <Radiobutton
+                name={"command"}
+                value={"mtr"}
+                handleCommandChange={handleCommandChange}
+              />
+            </div>
+          </div>
+
+          {command ? (
+            command == "ping" ? (
+              <div className="flex flex-col md:flex-row gap-8">
+                <div className="flex flex-col text-gray-500 gap-4">
+                  <Input
+                    inputLabel={"Specify packet count:"}
+                    inputValue={packetCount}
+                    inputPlaceholder={"10"}
+                    onChangeHandler={handlePacketCountChange}
                   />
                 </div>
               </div>
+            ) : null
+          ) : null}
 
-              {command ? (
-                command == "ping" ? (
-                  <div className="flex flex-col md:flex-row gap-8">
-                    <div className="flex flex-col text-gray-500 gap-4">
-                      <Input
-                        inputLabel={"Specify packet count:"}
-                        inputValue={packetCount}
-                        inputPlaceholder={"10"}
-                        onChangeHandler={handlePacketCountChange}
-                      />
-                    </div>
-                  </div>
-                ) : null
-              ) : null}
+          {command ? (
+            command == "traceroute" ? (
+              <div className="flex flex-col gap-4 bg-rose bg-ipxonGray p-2 rounded-lg">
+                <Toggle
+                  label={"Reverse DNS resolver"}
+                  toggleValue={DnsResolver}
+                  onChangeHandler={handleDnsChange}
+                />
+              </div>
+            ) : null
+          ) : null}
 
-              {command ? (
-                command == "traceroute" ? (
-                  <div className="flex flex-col gap-4">
-                    <Toggle
-                      label={"Reverse DNS resolver"}
-                      toggleValue={DnsResolver}
-                      onChangeHandler={handleDnsChange}
-                    />
-                  </div>
-                ) : null
-              ) : null}
+          {command ? (
+            command == "mtr" ? (
+              <div className="flex flex-col gap-4 bg-ipxonGray p-2 rounded-lg">
+                <Toggle
+                  label={"Reverse DNS resolver"}
+                  value={DnsResolver}
+                  onChangeHandler={handleDnsChange}
+                />
+                <Toggle
+                  label={"Lookup ASN"}
+                  value={AsLookup}
+                  onChangeHandler={handleAsLookupChange}
+                />
+                <Toggle
+                  label={"Show IPs"}
+                  value={ShowIps}
+                  onChangeHandler={handleShowIpsChange}
+                />
+              </div>
+            ) : null
+          ) : null}
 
-              {command ? (
-                command == "mtr" ? (
-                  <div className="flex flex-col gap-4">
-                    <Toggle
-                      label={"Reverse DNS resolver"}
-                      value={DnsResolver}
-                      onChangeHandler={handleDnsChange}
-                    />
-                    <Toggle
-                      label={"Lookup ASN"}
-                      value={AsLookup}
-                      onChangeHandler={handleAsLookupChange}
-                    />
-                    <Toggle
-                      label={"Show IPs"}
-                      value={ShowIps}
-                      onChangeHandler={handleShowIpsChange}
-                    />
-                  </div>
-                ) : null
-              ) : null}
-
-              <div className="flex flex-col gap-8 w-full">
-                <div className="flex gap-8">
-                  <div className="siteDropdown flex flex-col gap-2 w-full">
-                    <label htmlFor="site" className="flex text-white">
-                      2. IPXON Site:
-                    </label>
-                    {sites && (
-                      <Dropdown
-                        sites={sites}
-                        site={site}
-                        onChangeHandler={setSite}
-                      />
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="destination"
-                    className="flex justify-start text-white"
-                  >
-                    3. Destination:
-                  </label>
-                  <div className="bg-pink-800 hover:bg-pink-600 flex rounded-full">
-                    <input
-                      type="text"
-                      value={destination}
-                      placeholder="1.1.1.1"
-                      onChange={handleDestinationChange}
-                      className="z-40 w-full py-2.5 pl-4 pr-10 bg-black text-left rounded-r-none rounded-l-full shadow-md  border-white border"
-                    />
-
-                    {command && captchatoken && site && destination ? (
-                      <button
-                        className="bg-pink-800 h-max w-1/2 border black justify-center rounded-r-full flex items-center
-                      "
-                      >
-                        START
-                      </button>
-                    ) : (
-                      <button
-                        disabled="disabled"
-                        className="bg-gray-800 h-max w-1/2 border black disabled justify-center rounded-r-full flex items-center"
-                      >
-                        START
-                      </button>
-                    )}
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <ReCAPTCHA
-                    sitekey="6Lcyv9gdAAAAAJ1s607OJy87WKY2g0s8xdufNRSW"
-                    onChange={onCaptchaChange}
-                    theme="dark"
+          <div className="flex flex-col md:flex-row gap-8 w-full">
+            <div className="flex gap-8 w-full md:w-1/2">
+              <div className="siteDropdown flex flex-col gap-2 w-full">
+                <label htmlFor="site" className="flex text-white font-bold">
+                  2. IPXON Site:
+                </label>
+                {dropdownSites && (
+                  <Dropdown
+                    sites={dropdownSites}
+                    site={site}
+                    onChangeHandler={setSite}
                   />
-                </div>
+                )}
               </div>
             </div>
-          </form>
-          <div className="flex bg-gray-400 w-full m-16 mr-0 rounded-lg">
-            TODO MAP
+
+            <div className="flex flex-col gap-2 w-full md:w-1/2">
+              <label
+                htmlFor="destination"
+                className="flex justify-between  text-white font-bold"
+              >
+                <span>3. Destination:</span>
+                <button onClick={() => getClientIp()} disabled={loadingIp}>
+                  Load my ip
+                </button>
+              </label>
+              <div className="flex rounded-full">
+                {loadingIp ? (
+                  <button
+                    type="button"
+                    className="z-40 w-full flex py-2.5 pl-4 pr-10 text-left rounded-r-none rounded-l-full shadow-md  border-white border"
+                    disabled
+                  >
+                    <span className="animate-pulse">
+                      <BeatLoader
+                        color={"#FFF"}
+                        loading={loadingIp}
+                        css={override}
+                        size={10}
+                        margin={2}
+                      />
+                    </span>
+                  </button>
+                ) : (
+                  <input
+                    type="text"
+                    value={destination}
+                    placeholder="1.1.1.1"
+                    onChange={handleDestinationChange}
+                    className="z-40 w-full py-2.5 pl-4 pr-10 bg-black text-left rounded-r-none rounded-l-full shadow-md  border-white border"
+                  ></input>
+                )}
+
+                {command && captchatoken && site && destination ? (
+                  <button
+                    disabled={loading && "disabled"}
+                    className="bg-pink-800 hover:bg-pink-600 h-max w-1/2 border black justify-center rounded-r-full flex items-center"
+                  >
+                    START
+                  </button>
+                ) : (
+                  <button
+                    disabled="disabled"
+                    className="bg-gray-800 h-max w-1/2 border black disabled justify-center rounded-r-full flex items-center"
+                  >
+                    <span className="opacity-25">START</span>
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
+          <div className="flex">
+            <ReCAPTCHA
+              sitekey="6Lcyv9gdAAAAAJ1s607OJy87WKY2g0s8xdufNRSW"
+              onChange={onCaptchaChange}
+              theme="dark"
+            />
+          </div>
+        </form>
+        <div className="hidden md:flex" style={{ flexGrow: 1 }}>
+          {sites && <Map />}
         </div>
-        <div className="flex">
-          <div className="result flex w-full flex-col gap-4 bg-gradient-to-t from-black to-pink-700 mt-4 mb-12 p-8 rounded-lg">
-            <h2 className="text-4xl uppercase">{command} Results:</h2>
-            {loading ? <p>Loading</p> : null}
-            {response ? (
-              <ul className="text-white w-1/2">
+      </div>
+
+      <div className="result items-center container flex container h-30vh md:h-40vh mx-auto">
+        <div className="result-area h-full w-full md:w-1/2 bg-gradient-to-t from-black/25 to-pink-600/25 rounded-lg overflow-auto flex p-8 justify-center	">
+          {errorMessage ? (
+            <div className="flex flex-col w-full h-full items-center gap-6 justify-center">
+              <div className="font-thin text-2xl text-white">
+                {errorMessage}
+              </div>
+            </div>
+          ) : null}
+
+          {loading ? (
+            <div className="flex flex-col w-full h-full items-center gap-6 justify-center">
+              <div className="animate-pulse font-thin text-2xl text-white">
+                Fetching results...
+              </div>
+              <GridLoader color={"#FFF"} loading={loading} css={override} />
+            </div>
+          ) : null}
+
+          {response && (
+            <div className="flex flex-col w-full gap-4">
+              <div className="text-4xl uppercase text-white">
+                {command} result:
+              </div>
+              <ul className="text-white ">
                 {response.map((line, lineIdx) => (
                   <li key={lineIdx}>{line}</li>
                 ))}
               </ul>
-            ) : (
-              <h1>NO RESPONSE YET</h1>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </Layout>

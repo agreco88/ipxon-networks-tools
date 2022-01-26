@@ -9,7 +9,10 @@ const Input = ({
 }) => {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={inputValue} className="flex justify-start text-white">
+      <label
+        htmlFor={inputValue}
+        className="flex justify-start text-white font-bold"
+      >
         {inputLabel}
       </label>
       <input

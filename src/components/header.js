@@ -7,18 +7,18 @@ import { StaticImage } from "gatsby-plugin-image"
 
 function Header({ siteTitle }) {
   const navigation = [
-    { name: "IP Tool", to: "/whats-my-ip" },
+    { name: "Network Status", to: "/whats-my-ip" },
+    { name: "IP Address", to: "/whats-my-ip" },
     { name: "Looking Glass", to: "/looking-glass" },
-    { name: "Link 3", to: "/" },
-    { name: "Link 4", to: "/" },
+    { name: "English", to: "/" },
   ]
 
   return (
-    <nav className="bg-black">
+    <nav>
       <Popover>
         {({ open }) => (
           <>
-            <div className="relative z-20 container mx-auto flex items-center p-2 md:p-8">
+            <div className="relative z-20 container mx-auto flex items-center py-2 md:py-8 text-white">
               <div className="px-3 md:px-0 flex items-center justify-between w-full md:w-auto">
                 <Link to="/" className="relative text-white text-2xl">
                   <StaticImage
@@ -38,7 +38,7 @@ function Header({ siteTitle }) {
               </div>
               <div className="flex items-center flex-1 justify-end">
                 {/* NAV ITEMS */}
-                <ul className="hidden md:flex md:gap-8  px-16 py-4">
+                <ul className="hidden md:flex md:gap-8 py-4">
                   {navigation.map(navlink => (
                     <li className="justify-center" key={navlink.name}>
                       <Link
