@@ -59,7 +59,7 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
                     </span>
 
                     {site.ipv6 ? (
-                      <span className="flex bg-clip-text text-ipxonLightMagenta text-transparent font-semibold">
+                      <span className="flex bg-clip-text text-ipxonLightMagenta font-semibold">
                         IPV6
                       </span>
                     ) : (
