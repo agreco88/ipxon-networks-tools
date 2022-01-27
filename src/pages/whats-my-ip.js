@@ -30,7 +30,7 @@ export default function WhatsMyIp() {
               <h2 className="text-sm">Su direccion IP es:</h2>
               <h2 className="font-extrabold text-4xl">{ip}</h2>
               <h3 className="pt-4">
-                <span className="pt-1 font-thin border-t border-pink-500">
+                <span className="pt-1 font-thin border-t border-ipxonLightMagenta">
                   Comparta la IP con el{" "}
                   <span className="font-bold">soporte tecnico de IPXON</span>
                 </span>
@@ -40,6 +40,7 @@ export default function WhatsMyIp() {
                 <div className="flex justify-around w-1/2 md:w-1/3 mt-8 rounded-full bg-gray-500 self-center">
                   <a
                     href="https://www.teamviewer.com/en-us"
+                    target="_blank"
                     className="flex items-center"
                   >
                     <span>Teamviewer</span>
@@ -50,8 +51,10 @@ export default function WhatsMyIp() {
                       layout="fixed"
                     />
                   </a>
+                  <span className="text-center justify-center text-3xl rounded-full bg-white my-2 w-0.5"></span>
                   <a
                     href="https://anydesk.com/en"
+                    target="_blank"
                     className="flex items-center"
                   >
                     <span>AnyDesk</span>

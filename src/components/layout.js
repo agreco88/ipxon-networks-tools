@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
         <main>{children}</main>
         <footer className="h-10vh items-center container mx-auto text-white flex justify-between text-xs">
           <div>
-            Copyright © 2021 IPXON |{" "}
+            Copyright © {year} IPXON |{" "}
             <a
               href="https://www.ipxon.com/"
               className="font-extrabold text-white"

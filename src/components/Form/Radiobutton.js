@@ -11,7 +11,7 @@ const Radiobutton = ({ name, value, handleCommandChange }) => {
         <input
           type="radio"
           name={name}
-          className="radio radio-secondary"
+          className="radio radio-secondary bg-white border-white"
           defaultChecked
           value={value}
           id={value}
@@ -21,7 +21,7 @@ const Radiobutton = ({ name, value, handleCommandChange }) => {
         <input
           type="radio"
           name={name}
-          className="radio radio-secondary"
+          className="radio radio-secondary bg-white border-white"
           value={value}
           id={value}
           onClick={handleCommandChange}
