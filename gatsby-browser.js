@@ -5,3 +5,5 @@
  */
 
 // You can delete this file if you're not using it
+import "@fontsource/montserrat"
+import "@fontsource/montserrat/800.css"

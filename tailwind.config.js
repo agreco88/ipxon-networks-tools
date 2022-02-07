@@ -24,6 +24,7 @@ module.exports = {
         current: "currentColor",
         white: "#ffffff",
         rose: colors.rose,
+        ipxonBrown: "#1D1D1D",
         ipxonGray: "#212121",
         ipxonViolet: "#522857",
         ipxonLightMagenta: "#DD097D",

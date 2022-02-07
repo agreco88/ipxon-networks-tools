@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `IPXON IP tool`,
-    description: `Insntantly access your IP and support tools`,
+    title: `IPXON Network Tools`,
+    description: `Insntantly access your IP and IPXON tools such as PING MTR TRACEROUTE`,
     author: `@conexuminc`,
   },
   plugins: [
@@ -13,22 +13,14 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    {
-      resolve: "gatsby-plugin-react-svg",
-      options: {
-        rule: {
-          include: /images/,
-        },
-      },
-    },
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `IPXON Network Tools`,
+        short_name: `IPXON Tools`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,

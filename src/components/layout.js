@@ -11,6 +11,10 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 import "./layout.css"
+import Footer from "./Footer"
+
+import { PhoneIcon } from "@heroicons/react/solid"
+import LanguageDropdown from "./LanguageDropdown"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -29,30 +33,26 @@ const Layout = ({ children }) => {
     date.getDate(),
     date.getFullYear(),
   ]
-  console.log("Month:", [month])
-  console.log("Day:", [day])
-  console.log("Year:", [year])
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div>
-        <main>{children}</main>
-        <footer className="h-10vh items-center container mx-auto text-white flex justify-between text-xs">
-          <div>
-            Copyright © {year} IPXON |{" "}
-            <a
-              href="https://www.ipxon.com/"
-              className="font-extrabold text-white"
-            >
-              Terminos y condiciones
-            </a>
+      <div className="h-14 py-1 bg-ipxonBrown">
+        <div className="container mx-auto flex justify-between items-center h-full">
+          <div className="flex justify-between items-center gap-2">
+            <PhoneIcon className="h-4" />
+            <div className="text-sm font-bold">
+              +57 1 <span className="font-normal"> 3819399</span>
+            </div>
           </div>
-          <div>
-            {day}/{month == "0" ? month + 1 : month}/{year}
+          <div className="flex items-center gap-3">
+            <label className="uppercase text-sm">Language:</label>
+            <LanguageDropdown />
           </div>
-        </footer>
+        </div>
       </div>
+      <Header siteTitle={data.site.siteMetadata.title} />
+      <main>{children}</main>
+      <Footer />
     </>
   )
 }

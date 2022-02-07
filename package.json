@@ -7,11 +7,13 @@
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.23",
     "@amcharts/amcharts4-geodata": "^4.1.22",
+    "@fontsource/montserrat": "^4.5.3",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
     "axios": "^0.24.0",
     "daisyui": "^1.21.0",
     "gatsby": "^4.0.2",
+    "gatsby-background-image": "^1.6.0",
     "gatsby-plugin-google-analytics": "^4.0.0",
     "gatsby-plugin-image": "^2.0.0",
     "gatsby-plugin-manifest": "^4.0.0",

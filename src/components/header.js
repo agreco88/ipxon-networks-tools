@@ -7,10 +7,9 @@ import { StaticImage } from "gatsby-plugin-image"
 
 function Header({ siteTitle }) {
   const navigation = [
-    { name: "Network Status", to: "/whats-my-ip" },
-    { name: "IP Address", to: "/whats-my-ip" },
+    { name: "Service Status", to: "/" },
+    { name: "Get my IP Address", to: "/whats-my-ip" },
     { name: "Looking Glass", to: "/looking-glass" },
-    { name: "English", to: "/" },
   ]
 
   return (
@@ -24,7 +23,6 @@ function Header({ siteTitle }) {
                   <StaticImage
                     src="../images/icon-ipxon.svg"
                     alt="IPXON Networks"
-                    placeholder="blurred"
                     layout="fixed"
                   />
                 </Link>
@@ -46,9 +44,14 @@ function Header({ siteTitle }) {
                         className="
                         transition duration-500 ease-in-out
                         text-sm
-                        font-semibold
+                        font-thin
                         text-gray-200
+                        hover:border-b-2
+                        hover:border-ipxonLighterMagenta
+                        active:text-ipxonLighterMagenta
+                        focus:text-ipxonLighterMagenta  
                         "
+                        activeClassName="border-b-2 border-ipxonLighterMagenta"
                       >
                         {navlink.name}
                       </Link>
