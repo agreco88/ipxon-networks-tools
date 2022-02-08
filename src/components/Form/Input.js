@@ -8,7 +8,7 @@ const Input = ({
   onChangeHandler,
 }) => {
   return (
-    <div className="flex">
+    <div className="flex p-4">
       <label htmlFor={inputValue} className="flex text-white w-full">
         {inputLabel}
       </label>

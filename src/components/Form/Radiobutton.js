@@ -11,7 +11,7 @@ const Radiobutton = ({ name, value, handleCommandChange }) => {
         <input
           type="radio"
           name={name}
-          className="form-radio focus:ring-ipxonLighterMagenta h-4 w-4 accent-pink-500 checked:bg-ipxonLighterMagenta border-gray-300"
+          className="bg-ipxonLighterMagenta focus:ring-ipxonLighterMagenta h-6 w-6 accent-pink-500 checked:bg-ipxonLighterMagenta border-gray-300"
           defaultChecked
           value={value}
           id={value}
@@ -21,7 +21,7 @@ const Radiobutton = ({ name, value, handleCommandChange }) => {
         <input
           type="radio"
           name={name}
-          className="form-radio focus:ring-ipxonLighterMagenta h-4 w-4 accent-pink-500 checked:text-ipxonLighterMagenta border-gray-300"
+          className="focus:ring-ipxonLighterMagenta h-6 w-6 accent-pink-500 checked:text-ipxonLighterMagenta border-gray-300"
           value={value}
           id={value}
           onClick={handleCommandChange}

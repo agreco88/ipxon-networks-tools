@@ -169,6 +169,9 @@ export default function LookingGlass() {
 
   const handleCommandChange = e => {
     setCommand(e.currentTarget.value)
+    setDnsResolver(false)
+    setAsLookup(false)
+    setShowIps(false)
     setResponse("")
   }
 
@@ -187,16 +190,16 @@ export default function LookingGlass() {
     setPacketCount(e.currentTarget.value)
   }
 
-  const handleDnsChange = e => {
-    setDnsResolver(e.target.checked)
+  const handleDnsChange = enabled => {
+    setDnsResolver(enabled)
   }
 
-  const handleAsLookupChange = e => {
-    setAsLookup(e.target.checked)
+  const handleAsLookupChange = enabled => {
+    setAsLookup(enabled)
   }
 
-  const handleShowIpsChange = e => {
-    setShowIps(e.target.checked)
+  const handleShowIpsChange = enabled => {
+    setShowIps(enabled)
   }
 
   useEffect(() => {
@@ -238,7 +241,7 @@ export default function LookingGlass() {
 
               {command ? (
                 command == "ping" ? (
-                  <div className="flex flex-col bg-ipxonGray px-3 py-4 rounded-lg">
+                  <div className="flex flex-col bg-ipxonGray p-2 rounded-lg">
                     <Input
                       inputLabel={"Specify packet count"}
                       inputValue={packetCount}
@@ -347,14 +350,14 @@ export default function LookingGlass() {
                     {command && captchatoken && site && destination ? (
                       <button
                         disabled={loading && "disabled"}
-                        className="bg-ipxonLightMagenta transition-all duration-150 hover:bg-ipxonLighterMagenta h-max w-3/5 border-2 border-ipxonLightMagenta justify-center rounded-r-full flex items-center"
+                        className="bg-ipxonLightMagenta transition-all duration-500 hover:bg-ipxonLighterMagenta h-full w-3/5 border-2 border-white justify-center rounded-r-full flex items-center"
                       >
                         EXECUTE
                       </button>
                     ) : (
                       <button
                         disabled="disabled"
-                        className="bg-gray-800 h-max w-3/5 border black disabled justify-center rounded-r-full flex items-center"
+                        className="bg-gray-800 w-3/5 h-full border black disabled justify-center rounded-r-full flex items-center"
                       >
                         <span className="opacity-25">EXECUTE</span>
                       </button>

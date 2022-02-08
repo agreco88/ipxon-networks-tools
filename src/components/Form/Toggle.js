@@ -6,15 +6,19 @@ function classNames(...classes) {
 }
 
 export default function Toggle({ label, value, onChangeHandler }) {
-  console.log("Toggle props:", label, value, onChangeHandler)
-  const [enabled, setEnabled] = useState(false)
+  const [enabled, setEnabled] = useState(value)
+
+  const handleChange = () => {
+    setEnabled(!enabled)
+    onChangeHandler(!enabled)
+  }
 
   return (
     <div className="flex justify-between p-4">
       <label>{label}</label>
       <Switch
         checked={enabled}
-        onChange={setEnabled}
+        onChange={() => handleChange()}
         className={classNames(
           enabled ? "bg-ipxonLighterMagenta" : "bg-gray-200",
           "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ipxonLightMagenta"
