@@ -8,18 +8,18 @@ const Input = ({
   onChangeHandler,
 }) => {
   return (
-    <div className="flex flex-col gap-2">
-      <label
-        htmlFor={inputValue}
-        className="flex justify-start text-white font-bold"
-      >
+    <div className="flex">
+      <label htmlFor={inputValue} className="flex text-white w-full">
         {inputLabel}
       </label>
       <input
         type="text"
         value={inputValue}
         placeholder={inputPlaceholder}
-        className="relative z-40 w-full py-3 pl-3 pr-10 text-left rounded-full bg-transparent border border-white text-white shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm"
+        className="
+          w-1/4 relative z-40 text-center 
+          rounded-full bg-transparent 
+          text-white border"
         onChange={onChangeHandler}
       />
     </div>

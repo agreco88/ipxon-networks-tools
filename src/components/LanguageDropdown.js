@@ -45,7 +45,7 @@ export default function LanguageDropdown() {
         <Menu.Items className="border-1 origin-top-right absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-ipxonBrown border-1 border-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none">
           <div className="py-1 border-1 border-white">
             {languages.map(language => (
-              <Menu.Item>
+              <Menu.Item key={language.code}>
                 {({ active }) => (
                   <a
                     href="#"

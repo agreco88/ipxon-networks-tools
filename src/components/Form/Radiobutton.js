@@ -11,7 +11,7 @@ const Radiobutton = ({ name, value, handleCommandChange }) => {
         <input
           type="radio"
           name={name}
-          className="radio radio-secondary bg-white border-white"
+          className="form-radio focus:ring-ipxonLighterMagenta h-4 w-4 accent-pink-500 checked:bg-ipxonLighterMagenta border-gray-300"
           defaultChecked
           value={value}
           id={value}
@@ -21,7 +21,7 @@ const Radiobutton = ({ name, value, handleCommandChange }) => {
         <input
           type="radio"
           name={name}
-          className="radio radio-secondary bg-white border-white"
+          className="form-radio focus:ring-ipxonLighterMagenta h-4 w-4 accent-pink-500 checked:text-ipxonLighterMagenta border-gray-300"
           value={value}
           id={value}
           onClick={handleCommandChange}
@@ -38,3 +38,13 @@ Radiobutton.propTypes = {
 }
 
 export default Radiobutton
+
+{
+  /* <input
+id={notificationMethod.id}
+name="notification-method"
+type="radio"
+defaultChecked={notificationMethod.id === 'email'}
+className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+/> */
+}

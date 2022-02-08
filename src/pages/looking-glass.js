@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import ReCAPTCHA from "react-google-recaptcha"
 import axios from "axios"
+import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -10,9 +11,14 @@ import Input from "../components/Form/Input"
 import Toggle from "../components/Form/Toggle"
 import Map from "../components/Map"
 
-import { css } from "@emotion/react"
-import GridLoader from "react-spinners/GridLoader"
+import ErrorMessage from "../components/ErrorMessage"
+import { Spinner } from "../components/Spinner"
 import BeatLoader from "react-spinners/BeatLoader"
+import MoonLoader from "react-spinners/MoonLoader"
+
+import { css } from "@emotion/react"
+import { Response } from "../components/Response"
+import IpxonPopMap from "../images/pops-map-edited.png"
 
 const override = css`
   display: block;
@@ -41,7 +47,6 @@ export default function LookingGlass() {
   const [errorMessage, setErrorMessage] = useState(null)
   const [dropdownSites, setDropdownSites] = useState()
   const [loadingIp, setLoadingIp] = useState(false)
-  const [copiedResult, setCopiedResult] = useState(false)
   // const [lastResponse, setLastResponse] = useState(false)
 
   const getSites = async () => {
@@ -162,11 +167,6 @@ export default function LookingGlass() {
     setCaptchaToken(value)
   }
 
-  function handleCopiedResult() {
-    setCopiedResult(true)
-    navigator.clipboard.writeText(response)
-  }
-
   const handleCommandChange = e => {
     setCommand(e.currentTarget.value)
     setResponse("")
@@ -206,19 +206,18 @@ export default function LookingGlass() {
   return (
     <Layout>
       <SEO title="Looking glass" />
-
-      <div className="text-white items-center flex flex-col md:flex-row container mx-auto h-70vh ">
+      <div className="text-white items-center flex h-screen flex-col gap-4 md:flex-row container mx-auto w-full">
         {sites && (
           <>
             <form
               onSubmit={executeCommand}
-              className="flex flex-col md:w-1/2 mt-8 gap-8 rounded-lg transition-all"
+              className="flex flex-col gap-8 h-screen rounded-lg transition-all p-4 w-1/3"
             >
               <div className="radiobuttons flex flex-col gap-3">
                 <label htmlFor="command" className="font-bold">
                   1. Command
                 </label>
-                <div className="flex gap-3 justify-start">
+                <div className="flex gap-3 justify-around">
                   <Radiobutton
                     name={"command"}
                     value={"ping"}
@@ -239,22 +238,20 @@ export default function LookingGlass() {
 
               {command ? (
                 command == "ping" ? (
-                  <div className="flex flex-col md:flex-row gap-8">
-                    <div className="flex flex-col text-gray-500 gap-4">
-                      <Input
-                        inputLabel={"Specify packet count"}
-                        inputValue={packetCount}
-                        inputPlaceholder={"10"}
-                        onChangeHandler={handlePacketCountChange}
-                      />
-                    </div>
+                  <div className="flex flex-col bg-ipxonGray px-3 py-4 rounded-lg">
+                    <Input
+                      inputLabel={"Specify packet count"}
+                      inputValue={packetCount}
+                      inputPlaceholder={"10"}
+                      onChangeHandler={handlePacketCountChange}
+                    />
                   </div>
                 ) : null
               ) : null}
 
               {command ? (
                 command == "traceroute" ? (
-                  <div className="flex flex-col gap-4 bg-rose bg-ipxonGray p-2 rounded-lg md:w-1/2">
+                  <div className="flex flex-col gap-4 bg-ipxonGray p-2 rounded-lg">
                     <Toggle
                       label={"Reverse DNS resolver"}
                       toggleValue={DnsResolver}
@@ -266,7 +263,7 @@ export default function LookingGlass() {
 
               {command ? (
                 command == "mtr" ? (
-                  <div className="flex flex-col gap-4 bg-ipxonGray p-2 rounded-lg md:w-1/2">
+                  <div className="flex flex-col gap-4 bg-ipxonGray p-2 rounded-lg">
                     <Toggle
                       label={"Reverse DNS resolver"}
                       value={DnsResolver}
@@ -286,8 +283,8 @@ export default function LookingGlass() {
                 ) : null
               ) : null}
 
-              <div className="flex flex-col md:flex-row gap-8 w-full">
-                <div className="flex gap-8 w-full md:w-1/2">
+              <div className="flex flex-col gap-8">
+                <div className="flex gap-8">
                   <div className="siteDropdown flex flex-col gap-2 w-full">
                     <label htmlFor="site" className="flex text-white font-bold">
                       2. Source
@@ -302,7 +299,7 @@ export default function LookingGlass() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2 w-full md:w-1/2">
+                <div className="flex flex-col gap-2">
                   <label
                     htmlFor="destination"
                     className="flex justify-between text-white font-bold"
@@ -315,7 +312,7 @@ export default function LookingGlass() {
                           disabled={loadingIp}
                           className="text-ipxonLightMagenta hover:text-ipxonLighterMagenta"
                         >
-                          Load my IP
+                          Set my own IP
                         </button>
                       </span>
                     </span>
@@ -373,74 +370,42 @@ export default function LookingGlass() {
                 />
               </div>
             </form>
-            <div className="hidden md:flex" style={{ flexGrow: 1 }}>
-              {sites && <Map />}
+
+            <div className="flex flex-col gap-4 h-full rounded-lg transition-all w-2/3 justify-center">
+              <div className="bg-ipxonGray p-8 flex items-center justify-center overflow-scroll h-1/2 rounded-lg">
+                {errorMessage && <ErrorMessage error={errorMessage} />}
+                {loading && (
+                  <Spinner
+                    text="Fetching results..."
+                    spinner={
+                      <MoonLoader
+                        color={"#FF33AD"}
+                        loading={true}
+                        css={override}
+                      />
+                    }
+                  />
+                )}
+                {response && (
+                  <Response commandType={command} results={response} />
+                )}
+              </div>
+              <div className="relative h-1/2 flex justify-center items-center">
+                <img src={IpxonPopMap} className="w-full h-4/5 " />
+                <span className="absolute bottom-0 right-0 uppercase text-ipxonLightMagenta font-thin">
+                  Welcome to presence
+                </span>
+              </div>
             </div>
           </>
         )}
       </div>
-      {sites && (
-        <div className="result items-center container flex container h-screen md:h-40vh mx-auto">
-          <div className="result-area h-full w-full md:w-1/2 bg-gradient-to-t from-black/25 to-ipxonLightMagenta/25 overflow-auto rounded-lg flex p-8 justify-center	">
-            {errorMessage ? (
-              <div className="flex flex-col w-full h-full items-center gap-6 justify-center">
-                <div className="font-thin text-2xl text-white">
-                  {errorMessage}
-                </div>
-              </div>
-            ) : null}
-
-            {loading ? (
-              <div className="flex flex-col w-full h-full items-center gap-6 justify-center">
-                <div className="animate-pulse font-thin text-2xl text-white">
-                  Fetching results...
-                </div>
-                <GridLoader color={"#FFF"} loading={loading} css={override} />
-              </div>
-            ) : null}
-
-            {response && (
-              <div className="flex flex-col w-full gap-4">
-                <div></div>
-                <div className="text-4xl flex justify-between uppercase text-white">
-                  <div className="text-3xl font-bold">{command} result:</div>
-                  <button
-                    className="Copy button flex justify-center items-center gap-2 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta"
-                    onClick={() => {
-                      handleCopiedResult()
-                    }}
-                  >
-                    {copiedResult && (
-                      <span className="text-ipxonLightMagenta text-xs ">
-                        COPIED
-                      </span>
-                    )}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-full"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <ul className="text-white">
-                  {response.map((line, lineIdx) => (
-                    <li key={lineIdx}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </Layout>
   )
+}
+
+{
+  /* <div className="hidden md:flex" style={{ flexGrow: 1 }}>
+              {sites && <Map />}
+            </div> */
 }

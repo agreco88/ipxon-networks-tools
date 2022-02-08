@@ -20,7 +20,7 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
             </span>
 
             {site.ipv6 ? (
-              <span className="flex bg-clip-text text-ipxonLightMagenta font-semibold">
+              <span className="flex bg-clip-text text-ipxonLightMagenta font-thin">
                 IPV6
               </span>
             ) : (
@@ -45,7 +45,7 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
               <Listbox.Option key={site.id} value={site}>
                 <>
                   <span
-                    className={`flex gap-2 w-full  justify-between items-center truncate py-2 pl-3.5 pr-4`}
+                    className={`flex gap-2 w-full justify-between items-center truncate py-2 pl-3.5 pr-4`}
                   >
                     <span className="flex gap-4">
                       <Flag
@@ -59,7 +59,7 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
                     </span>
 
                     {site.ipv6 ? (
-                      <span className="flex bg-clip-text text-ipxonLightMagenta font-semibold">
+                      <span className="flex bg-clip-text text-ipxonLightMagenta font-thin">
                         IPV6
                       </span>
                     ) : (
