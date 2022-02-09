@@ -18,7 +18,7 @@ import MoonLoader from "react-spinners/MoonLoader"
 
 import { css } from "@emotion/react"
 import { Response } from "../components/Response"
-import IpxonPopMap from "../images/pops-map-edited.png"
+import IpxonPopMap from "../images/bg-lookingGlass.svg"
 
 const override = css`
   display: block;
@@ -238,54 +238,54 @@ export default function LookingGlass() {
                   />
                 </div>
               </div>
+              <div className="flex flex-col gap-4 bg-ipxonGray p-2 rounded-lg">
+                {command ? (
+                  command == "ping" ? (
+                    <div className="">
+                      <Input
+                        inputLabel={"Specify packet count"}
+                        inputValue={packetCount}
+                        inputPlaceholder={"10"}
+                        onChangeHandler={handlePacketCountChange}
+                      />
+                    </div>
+                  ) : null
+                ) : null}
 
-              {command ? (
-                command == "ping" ? (
-                  <div className="flex flex-col bg-ipxonGray p-2 rounded-lg">
-                    <Input
-                      inputLabel={"Specify packet count"}
-                      inputValue={packetCount}
-                      inputPlaceholder={"10"}
-                      onChangeHandler={handlePacketCountChange}
-                    />
-                  </div>
-                ) : null
-              ) : null}
+                {command ? (
+                  command == "traceroute" ? (
+                    <div className="">
+                      <Toggle
+                        label={"Reverse DNS resolver"}
+                        toggleValue={DnsResolver}
+                        onChangeHandler={handleDnsChange}
+                      />
+                    </div>
+                  ) : null
+                ) : null}
 
-              {command ? (
-                command == "traceroute" ? (
-                  <div className="flex flex-col gap-4 bg-ipxonGray p-2 rounded-lg">
-                    <Toggle
-                      label={"Reverse DNS resolver"}
-                      toggleValue={DnsResolver}
-                      onChangeHandler={handleDnsChange}
-                    />
-                  </div>
-                ) : null
-              ) : null}
-
-              {command ? (
-                command == "mtr" ? (
-                  <div className="flex flex-col gap-4 bg-ipxonGray p-2 rounded-lg">
-                    <Toggle
-                      label={"Reverse DNS resolver"}
-                      value={DnsResolver}
-                      onChangeHandler={handleDnsChange}
-                    />
-                    <Toggle
-                      label={"Lookup ASN"}
-                      value={AsLookup}
-                      onChangeHandler={handleAsLookupChange}
-                    />
-                    <Toggle
-                      label={"Show IPs"}
-                      value={ShowIps}
-                      onChangeHandler={handleShowIpsChange}
-                    />
-                  </div>
-                ) : null
-              ) : null}
-
+                {command ? (
+                  command == "mtr" ? (
+                    <div className="">
+                      <Toggle
+                        label={"Reverse DNS resolver"}
+                        value={DnsResolver}
+                        onChangeHandler={handleDnsChange}
+                      />
+                      <Toggle
+                        label={"Lookup ASN"}
+                        value={AsLookup}
+                        onChangeHandler={handleAsLookupChange}
+                      />
+                      <Toggle
+                        label={"Show IPs"}
+                        value={ShowIps}
+                        onChangeHandler={handleShowIpsChange}
+                      />
+                    </div>
+                  ) : null
+                ) : null}
+              </div>
               <div className="flex flex-col gap-8">
                 <div className="flex gap-8">
                   <div className="siteDropdown flex flex-col gap-2 w-full">
@@ -374,8 +374,20 @@ export default function LookingGlass() {
               </div>
             </form>
 
-            <div className="flex flex-col gap-4 h-full rounded-lg transition-all w-2/3 justify-center">
-              <div className="bg-ipxonGray p-8 flex items-center justify-center overflow-scroll h-1/2 rounded-lg">
+            <div className="flex flex-col gap-4 h-full rounded-lg transition-all w-2/3 justify-start">
+              <div className="relative w-full flex justify-center items-center">
+                <img src={IpxonPopMap} className="w-full h-4/5 md:w-1/2" />
+                <span className="absolute bottom-0 right-0 uppercase text-ipxonLightMagenta font-thin">
+                  Welcome to presence
+                </span>
+              </div>
+              <div
+                className={`${
+                  errorMessage || response || loading
+                    ? "bg-ipxonGray p-8 flex items-center justify-center rounded-lg h-1/2 overflow-auto w-9/12 self-center  "
+                    : "hidden"
+                }`}
+              >
                 {errorMessage && <ErrorMessage error={errorMessage} />}
                 {loading && (
                   <Spinner
@@ -393,22 +405,10 @@ export default function LookingGlass() {
                   <Response commandType={command} results={response} />
                 )}
               </div>
-              <div className="relative h-1/2 flex justify-center items-center">
-                <img src={IpxonPopMap} className="w-full h-4/5 " />
-                <span className="absolute bottom-0 right-0 uppercase text-ipxonLightMagenta font-thin">
-                  Welcome to presence
-                </span>
-              </div>
             </div>
           </>
         )}
       </div>
     </Layout>
   )
-}
-
-{
-  /* <div className="hidden md:flex" style={{ flexGrow: 1 }}>
-              {sites && <Map />}
-            </div> */
 }

@@ -10,11 +10,11 @@ export const Response = ({ commandType, results }) => {
   }
 
   return (
-    <div className="result h-full px-8 flex flex-col w-full gap-4 overflow-scroll">
+    <div className="result h-full px-1 flex flex-col w-full gap-4 overflow-scroll">
       <div className="text-4xl flex justify-between uppercase text-white">
         <div className="text-3xl font-bold">{commandType} result:</div>
         <button
-          className="Copy button flex justify-center items-center gap-2 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta"
+          className="Copy button flex justify-center items-center gap-2 pr-4 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta"
           onClick={() => {
             handleCopiedResult()
           }}
