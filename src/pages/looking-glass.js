@@ -375,7 +375,7 @@ export default function LookingGlass() {
             </form>
 
             <div className="flex flex-col gap-4 h-full rounded-lg transition-all w-2/3">
-              <div className="h-1/2 flex flex-col w-2/3 self-start">
+              <div className="h-1/2 flex flex-col w-2/3 self-center">
                 <h3 className="text-2xl text-ipxonLighterMagenta to-ipxonLightMagenta via-ipxonViolet font-thin uppercase py-4">
                   Welcome to presence
                 </h3>
@@ -387,7 +387,7 @@ export default function LookingGlass() {
               <div
                 className={`${
                   errorMessage || response || loading
-                    ? "bg-ipxonGray p-8 flex justify-start rounded-lg h-1/2 overflow-auto w-9/12  "
+                    ? "bg-ipxonGray p-8 flex justify-center rounded-lg h-1/2 overflow-auto w-9/12 self-center"
                     : "hidden"
                 }`}
               >
