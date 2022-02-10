@@ -374,17 +374,20 @@ export default function LookingGlass() {
               </div>
             </form>
 
-            <div className="flex flex-col gap-4 h-full rounded-lg transition-all w-2/3 justify-start">
-              <div className="relative w-full flex justify-center items-center">
-                <img src={IpxonPopMap} className="w-full h-4/5 md:w-1/2" />
-                <span className="absolute bottom-0 right-0 uppercase text-ipxonLightMagenta font-thin">
+            <div className="flex flex-col gap-4 h-full rounded-lg transition-all w-2/3">
+              <div className="h-1/2 flex flex-col w-2/3 self-start">
+                <h3 className="text-2xl text-ipxonLighterMagenta to-ipxonLightMagenta via-ipxonViolet font-thin uppercase py-4">
                   Welcome to presence
-                </span>
+                </h3>
+                <div className="relative flex justify-start items-center">
+                  <img src={IpxonPopMap} className="" />
+                </div>
               </div>
+
               <div
                 className={`${
                   errorMessage || response || loading
-                    ? "bg-ipxonGray p-8 flex items-center justify-center rounded-lg h-1/2 overflow-auto w-9/12 self-center  "
+                    ? "bg-ipxonGray p-8 flex justify-start rounded-lg h-1/2 overflow-auto w-9/12  "
                     : "hidden"
                 }`}
               >

@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import BackgroundImage from "gatsby-background-image"
 
-import { DocumentDuplicateIcon, DuplicateIcon } from "@heroicons/react/outline"
+import { DuplicateIcon } from "@heroicons/react/outline"
 
 const Buttons = () => {
   return (
@@ -106,31 +106,14 @@ export default function WhatsMyIp() {
                   Your IP address is:
                   <span className="flex">
                     <span className="flex-1 font-bold text-4xl">{ip}</span>
-                    {/* <span className="flex-0 flex-col text-white items-center justify-center py-2 pr-2 pt-1 self-center">
-                      <DuplicateIcon
-                        className="
-                        h-8 opacity-25 hover:opacity-100
-                        transition duration-500 ease-in-out 
-                      hover:text-ipxonLightMagenta
-                      focus:text-ipxonLightMagenta"
-                      />
-                    </span> */}
                   </span>
                 </h2>
               </div>
-              <div className="w-1/2 self-center text-xs">
-                <span
-                  className="
-                  hover:border-b 
-                  hover:border-ipxonLighterMagenta
-                  hover:text-ipxonLighterMagenta
-                  transition duration-500 ease-in-out 
-                  cursor-pointer
-                  "
-                >
-                  COPY
-                </span>{" "}
-                <span>and share this info with IPXON Technical Support</span>
+              <div className="w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out hover:text-ipxonLightMagenta focus:text-ipxonLightMagenta ">
+                <span>
+                  Copy and share this info with IPXON Technical Support
+                </span>
+                <DuplicateIcon className="h-8 cursor-pointer" />
               </div>
               <Buttons />
             </div>
