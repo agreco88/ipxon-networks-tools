@@ -87,7 +87,7 @@ export default function WhatsMyIp() {
     <div
       style={{
         backgroundImage: `url(${mainBackground})`,
-        backgroundSize: `100vw`,
+        backgroundSize: `cover`,
       }}
     >
       <Layout>
