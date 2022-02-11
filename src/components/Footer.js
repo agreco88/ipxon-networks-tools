@@ -42,42 +42,16 @@ const navigation = [
 
 export const Footer = () => {
   return (
-    <footer className="container mx-auto text-xs">
-      <div className="py-6 border-opacity-50 w-full md:flex md:items-center md:justify-between">
+    <footer className="container mx-auto text-xs h-10vh">
+      <div className="border-opacity-50 w-full md:flex md:items-center md:justify-between">
         <div className="flex md:order-2 gap-3 w-2/3 justify-end ">
-          <div className="flex gap-6 text-center text-gray-400 w-2/3 self-center justify-between pl-6">
-            <div className="flex gap-3 text-center text-gray-400 self-center flex-1 justify-end ">
-              <Link
-                to="/terms-and-conditions"
-                className="                        
-                  transition duration-250 ease-in-out
-                  text-sm
-                  font-thin
-                  hover:text-orbitext
-                  focus:text-orbitext
-                  text-gray-200"
-              >
-                Terms and Conditions
-              </Link>
-              <Link
-                to="/privacy"
-                className="                        
-                  transition duration-250 ease-in-out
-                  text-sm
-                  font-thin
-                  hover:text-orbitext
-                  focus:text-orbitext
-                  text-gray-200"
-              >
-                Privacy
-              </Link>
-            </div>
+          <div className="flex gap-6 text-center text-gray-400 w-2/3 self-center justify-end pl-6">
             <div className="flex text-center text-base text-gray-200 self-center">
               <a
                 href="https://www.conexum.co/"
                 target="_blank"
                 rel="noreferrer"
-                className="flex text-center text-base text-gray-200 self-center"
+                className="flex text-center text-base text-gray-200 self-end"
               >
                 <img
                   className="h-20 md:h-16 w-auto self-center ml-1 sm:ml2 md:ml-3 pr-6"

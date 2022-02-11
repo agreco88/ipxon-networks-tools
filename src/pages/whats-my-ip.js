@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { graphql, useStaticQuery } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import BackgroundImage from "gatsby-background-image"
 
+import mainBackground from "../images/bg-ipxon.svg"
 import { DuplicateIcon } from "@heroicons/react/outline"
+import BeatLoader from "react-spinners/BeatLoader"
+
+import { css } from "@emotion/react"
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`
 
 const Buttons = () => {
   return (
@@ -56,32 +64,19 @@ const Buttons = () => {
 }
 
 export default function WhatsMyIp() {
+  const [loading, setLoading] = useState(true)
   const [ip, setIP] = useState()
   const [copiedIp, setCopiedIp] = useState()
 
   const getData = async () => {
     const res = await axios.get("https://geolocation-db.com/json/")
     setIP(res.data.IPv4)
+    setLoading(false)
   }
 
   useEffect(() => {
     getData()
   }, [])
-
-  const images = useStaticQuery(
-    graphql`
-      query {
-        bgImage: file(relativePath: { eq: "Fondo-op1.jpg" }) {
-          childImageSharp {
-            fluid(quality: 100, maxWidth: 1920) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-      }
-    `
-  )
-  const bgImageData = images.bgImage.childImageSharp.fluid
 
   function handleCopiedResult() {
     setCopiedIp(true)
@@ -89,42 +84,42 @@ export default function WhatsMyIp() {
   }
 
   return (
-    <BackgroundImage
-      Tag="section"
-      fluid={bgImageData}
-      alt={"Satelite in space"}
+    <div
+      style={{
+        backgroundImage: `url(${mainBackground})`,
+        backgroundSize: `100vw`,
+      }}
     >
       <Layout>
         <SEO title="What is my IP" />
-
-        <div className="bg-gradient-to-tr from-ipxonLightMagenta via-black to-black absolute" />
-        <div className="w-full mx-auto container justify-center items-center flex flex-col h-70vh ">
-          {ip ? (
-            <div className="flex flex-col justify-center w-1/2 text-center gap-1 h-96">
-              <div className="w-1/2 relative border-b py-2 border-ipxonLighterMagenta fles justify-center items-center self-center">
-                <h2 className="flex flex-col">
-                  Your IP address is:
-                  <span className="flex">
-                    <span className="flex-1 font-bold text-4xl">{ip}</span>
+        <div className="w-full mx-auto container justify-center items-center flex flex-col h-75vh">
+          <div className="flex flex-col justify-center w-1/2 text-center gap-1 h-96">
+            <div className="w-1/2 relative border-b py-2 border-ipxonLighterMagenta fles justify-center items-center self-center">
+              <h2 className="flex flex-col">
+                Your IP address is:
+                <span className="flex">
+                  <span className="flex-1 font-bold text-4xl">
+                    {loading ? (
+                      <BeatLoader
+                        color={"#FF33AD"}
+                        loading={true}
+                        css={override}
+                      />
+                    ) : (
+                      ip
+                    )}
                   </span>
-                </h2>
-              </div>
-              <div className="w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out hover:text-ipxonLightMagenta focus:text-ipxonLightMagenta ">
-                <span>
-                  Copy and share this info with IPXON Technical Support
                 </span>
-                <DuplicateIcon className="h-8 cursor-pointer" />
-              </div>
-              <Buttons />
+              </h2>
             </div>
-          ) : (
-            <svg
-              className="animate-spin h-5 w-5 mr-3 ..."
-              viewBox="0 0 24 24"
-            />
-          )}
+            <div className="w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out hover:text-ipxonLightMagenta focus:text-ipxonLightMagenta ">
+              <span>Copy and share this info with IPXON Technical Support</span>
+              <DuplicateIcon className="h-8 cursor-pointer" />
+            </div>
+            <Buttons />
+          </div>
         </div>
       </Layout>
-    </BackgroundImage>
+    </div>
   )
 }

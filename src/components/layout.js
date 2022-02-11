@@ -13,7 +13,7 @@ import Header from "./header"
 import "./layout.css"
 import Footer from "./Footer"
 
-import { PhoneIcon } from "@heroicons/react/solid"
+import { MailIcon } from "@heroicons/react/solid"
 import LanguageDropdown from "./LanguageDropdown"
 
 const Layout = ({ children }) => {
@@ -36,12 +36,12 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div className="h-14 py-1 bg-ipxonBrown">
+      <div className=" py-1 bg-ipxonBrown h-5vh">
         <div className="container mx-auto flex justify-between items-center h-full">
           <div className="flex justify-between items-center gap-2">
-            <PhoneIcon className="h-4" />
+            <MailIcon className="h-4" />
             <div className="text-sm font-bold">
-              +57 1 <span className="font-normal"> 3819399</span>
+              <span className="font-normal">sales@ipxon.com</span>
             </div>
           </div>
           <div className="flex items-center gap-3">

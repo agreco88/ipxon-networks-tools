@@ -40,7 +40,7 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="z-50 absolute w-full bg-black border borderwhite py-1 mt-1 text-base rounded-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm overflow-visible">
+          <Listbox.Options className="z-50 h-max absolute w-full bg-black border borderwhite py-1 mt-1 text-base rounded-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm overflow-scroll">
             {sites.map(site => (
               <Listbox.Option key={site.id} value={site}>
                 <>
