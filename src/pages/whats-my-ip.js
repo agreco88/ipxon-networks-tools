@@ -92,9 +92,9 @@ export default function WhatsMyIp() {
     >
       <Layout>
         <SEO title="What is my IP" />
-        <div className="w-full p-8 md:p-0 mx-auto container justify-center items-center flex flex-col h-75vh">
+        <div className="text-white w-full p-8 md:p-0 mx-auto container justify-center items-center flex flex-col h-75vh">
           <div className="flex flex-col justify-center w-1/2 text-center gap-1 h-96">
-            <div className="w-1/2 relative border-b py-2 border-ipxonLighterMagenta fles justify-center items-center self-center">
+            <div className="w-1/2 relative border-b py-2 border-ipxonLighterMagenta justify-center items-center self-center">
               <h2 className="flex flex-col">
                 Your IP address is:
                 <span className="flex">
@@ -112,7 +112,7 @@ export default function WhatsMyIp() {
                 </span>
               </h2>
             </div>
-            <div className="w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out hover:text-ipxonLightMagenta focus:text-ipxonLightMagenta ">
+            <div className=" w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out hover:text-ipxonLightMagenta focus:text-ipxonLightMagenta ">
               <span>Copy and share this info with IPXON Technical Support</span>
               <DuplicateIcon className="h-8 cursor-pointer" />
             </div>
