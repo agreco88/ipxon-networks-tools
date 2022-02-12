@@ -1,5 +1,5 @@
 import React from "react"
-import CXLogo from "../images/conexum-member.svg"
+import CXLogo from "../images/conexum-logo-white.svg"
 import { Link } from "gatsby"
 
 const navigation = [

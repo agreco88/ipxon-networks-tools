@@ -16,7 +16,7 @@ function Header({ siteTitle }) {
       <Popover>
         {({ open }) => (
           <>
-            <div className="h-10vh relative p-2 z-20 container mx-auto flex items-center self-center text-white">
+            <div className="h-10vh relative pt-2 px-8 md:px-0 z-20 container mx-auto flex items-center self-center text-white">
               <div className="px-3 md:px-0 flex items-center justify-between w-full md:w-auto">
                 <Link to="/" className="relative text-white text-2xl">
                   <StaticImage

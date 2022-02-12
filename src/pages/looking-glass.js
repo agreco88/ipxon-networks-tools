@@ -213,7 +213,7 @@ export default function LookingGlass() {
     >
       <Layout>
         <SEO title="Looking glass" />
-        <div className="text-white  flex h-75vh flex-col gap-4 md:flex-row container mx-auto w-full overflow-hidden">
+        <div className="my-16 text-white p-8 md:p-0 flex h-80vh flex-col gap-4 md:flex-row container mx-auto w-full overflow-hidden">
           {sites && (
             <>
               <form

@@ -3,9 +3,8 @@ const colors = require("tailwindcss/colors")
 module.exports = {
   mode: "jit",
 
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   future: {},
-  purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
+  content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
   theme: {
     extend: {
       height: {

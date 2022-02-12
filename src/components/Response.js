@@ -38,7 +38,7 @@ export const Response = ({ commandType, results }) => {
           </svg>
         </button>
       </div>
-      <ul className="text-white">
+      <ul className="text-white text-sm leading-8">
         {results.map((line, lineIdx) => (
           <li key={lineIdx}>{line}</li>
         ))}

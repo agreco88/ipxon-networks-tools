@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div className=" py-1 bg-ipxonBrown h-5vh">
+      <div className="bg-ipxonBrown h-5vh">
         <div className="container mx-auto flex justify-between items-center h-full">
           <div className="flex justify-between items-center gap-2">
             <MailIcon className="h-4" />

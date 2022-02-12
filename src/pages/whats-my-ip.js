@@ -92,7 +92,7 @@ export default function WhatsMyIp() {
     >
       <Layout>
         <SEO title="What is my IP" />
-        <div className="w-full mx-auto container justify-center items-center flex flex-col h-75vh">
+        <div className="w-full p-8 md:p-0 mx-auto container justify-center items-center flex flex-col h-75vh">
           <div className="flex flex-col justify-center w-1/2 text-center gap-1 h-96">
             <div className="w-1/2 relative border-b py-2 border-ipxonLighterMagenta fles justify-center items-center self-center">
               <h2 className="flex flex-col">
