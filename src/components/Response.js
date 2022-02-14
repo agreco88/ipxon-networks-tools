@@ -10,9 +10,9 @@ export const Response = ({ commandType, results }) => {
   }
 
   return (
-    <div className="result h-full px-1 flex flex-col w-full gap-4 overflow-scroll">
+    <div className="result h-full px-1 flex flex-col w-full gap-4 ">
       <div className="text-4xl flex justify-between uppercase text-white">
-        <div className="text-3xl font-bold">{commandType} result:</div>
+        <div className="sticky text-3xl font-boldy">{commandType} results:</div>
         <button
           className="Copy button flex justify-center items-center gap-2 pr-4 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta"
           onClick={() => {
@@ -38,7 +38,7 @@ export const Response = ({ commandType, results }) => {
           </svg>
         </button>
       </div>
-      <ul className="text-white text-sm leading-8">
+      <ul className="text-white text-sm flex flex-col justify-between leading-8 overflow-scroll">
         {results.map((line, lineIdx) => (
           <li key={lineIdx}>{line}</li>
         ))}

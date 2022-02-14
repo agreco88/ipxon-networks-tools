@@ -213,7 +213,7 @@ export default function LookingGlass() {
     >
       <Layout>
         <SEO title="Looking glass" />
-        <div className="my-16 text-white p-8 md:p-0 flex h-80vh flex-col gap-4 md:flex-row container mx-auto w-full overflow-hidden">
+        <div className="text-white p-8 md:p-0 flex h-70vh flex-col gap-4 md:flex-row container mx-auto w-full overflow-hidden">
           {sites && (
             <>
               <form
@@ -290,7 +290,7 @@ export default function LookingGlass() {
                     ) : null
                   ) : null}
                 </div>
-                <div className="flex flex-col gap-10">
+                <div className="flex flex-col gap-8">
                   <div className="flex gap-8">
                     <div className="siteDropdown flex flex-col gap-2 w-full">
                       <label
@@ -389,24 +389,22 @@ export default function LookingGlass() {
                     </h3>
                     <p className="text-gray-300 w-4/5">
                       Access an extensive network with more than 20 datacenters
-                      that provide solutions in strategic locationsthrought
+                      that provide solutions in strategic locations throughout
                       LATAM.
                     </p>
-                    <p className="text-sm text-gray-500">
-                      Set your commands in order to try our network and services
-                    </p>
-                    {/* <div className="relative flex justify-start items-center">
-                  <img src={IpxonPopMap} className="" />
-                </div> */}
                   </div>
                   <div
-                    className={`${
-                      errorMessage || response || loading
-                        ? "bg-ipxonGray p-8 flex justify-center rounded-lg h-96 max-h-96 items-center overflow-auto w-full self-center"
-                        : "hidden"
-                    }`}
+                    className={`${"bg-ipxonGray p-8 flex justify-center rounded-lg h-96 max-h-96 items-center overflow-auto w-full self-center border-2 border-white border-opacity-10"}`}
                   >
                     {errorMessage && <ErrorMessage error={errorMessage} />}
+                    {response === "" && (
+                      <ErrorMessage
+                        error={
+                          "Set your commands in order to try our network and services"
+                        }
+                      />
+                    )}
+
                     {loading && (
                       <Spinner
                         text="Fetching results..."
@@ -423,9 +421,7 @@ export default function LookingGlass() {
                       <Response commandType={command} results={response} />
                     )}
                   </div>
-                  <div
-                    className={`${response ? "flex justify-end" : "hidden"} `}
-                  >
+                  <div className={`${"flex justify-end"} `}>
                     <a
                       className={`
                       flex items-center
@@ -445,7 +441,7 @@ export default function LookingGlass() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Buy service
+                      Buy services
                     </a>{" "}
                   </div>
                 </div>
