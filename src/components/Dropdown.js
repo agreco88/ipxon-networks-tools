@@ -55,7 +55,9 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
                         key={site.flag}
                       />
 
-                      <span className="self-center">{site.desc} </span>
+                      <span className="self-center cursor-pointer hover:text-ipxonLighterMagenta transition duration-150 ease-in">
+                        {site.desc}{" "}
+                      </span>
                     </span>
 
                     {site.ipv6 ? (

@@ -9,7 +9,7 @@ import Dropdown from "../components/Dropdown"
 import Input from "../components/Form/Input"
 import Toggle from "../components/Form/Toggle"
 
-import ErrorMessage from "../components/ErrorMessage"
+import Message from "../components/Message"
 import { Spinner } from "../components/Spinner"
 import BeatLoader from "react-spinners/BeatLoader"
 import MoonLoader from "react-spinners/MoonLoader"
@@ -42,7 +42,7 @@ export default function LookingGlass() {
   const [AsLookup, setAsLookup] = useState(false)
   const [ShowIps, setShowIps] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [message, setMessage] = useState(null)
   const [dropdownSites, setDropdownSites] = useState()
   const [loadingIp, setLoadingIp] = useState(false)
   // const [lastResponse, setLastResponse] = useState(false)
@@ -61,7 +61,7 @@ export default function LookingGlass() {
       })
       .catch(error => {
         console.log(error)
-        setErrorMessage(error)
+        setMessage(error)
       })
   }
 
@@ -70,7 +70,7 @@ export default function LookingGlass() {
     setResponse(null)
     switch (command) {
       case "ping":
-        setErrorMessage("")
+        setMessage("")
         setLoading(true)
         await axios
           .post(
@@ -90,7 +90,7 @@ export default function LookingGlass() {
             if (error.message.includes("400")) {
               //TODO TOKEN REFRESH HERE
               window.grecaptcha.reset()
-              setErrorMessage(
+              setMessage(
                 "Recaptcha expired. Please click on the captcha again and retry."
               )
               setLoading(false)
@@ -99,7 +99,7 @@ export default function LookingGlass() {
           })
         break
       case "mtr":
-        setErrorMessage("")
+        setMessage("")
         setLoading(true)
         await axios
           .post(
@@ -119,7 +119,7 @@ export default function LookingGlass() {
             if (error.message.includes("400")) {
               //TODO TOKEN REFRESH HERE
               window.grecaptcha.reset()
-              setErrorMessage(
+              setMessage(
                 "Recaptcha expired. Please click on the captcha again and retry."
               )
               setLoading(false)
@@ -128,7 +128,7 @@ export default function LookingGlass() {
           })
         break
       case "traceroute":
-        setErrorMessage("")
+        setMessage("")
         setLoading(true)
         await axios
           .post(
@@ -148,7 +148,7 @@ export default function LookingGlass() {
             if (error.message.includes("400")) {
               //TODO TOKEN REFRESH HERE
               window.grecaptcha.reset()
-              setErrorMessage(
+              setMessage(
                 "Recaptcha expired. Please click on the captcha again and retry."
               )
               setLoading(false)
@@ -213,12 +213,12 @@ export default function LookingGlass() {
     >
       <Layout>
         <SEO title="Looking glass" />
-        <div className="text-white p-8 md:p-0 flex h-70vh flex-col gap-4 md:flex-row container mx-auto w-full overflow-hidden">
+        <div className="z-50 text-white p-8 md:p-0 flex h-80vh flex-col gap-4 md:flex-row container mx-auto w-full overflow-hidden">
           {sites && (
             <>
               <form
                 onSubmit={executeCommand}
-                className="flex flex-col gap-8 rounded-lg transition-all p-4 w-1/3"
+                className="flex flex-col gap-8 rounded-lg transition-all 2xl:justify-center p-4 w-full md:w-1/3"
               >
                 <div className="radiobuttons flex flex-col gap-3">
                   <label htmlFor="command" className="font-bold">
@@ -382,7 +382,7 @@ export default function LookingGlass() {
               </form>
 
               <div className="flex flex-col gap-8 h-full rounded-lg transition-all w-2/3">
-                <div className="h-full flex flex-col w-5/6 self-end gap-4">
+                <div className="h-full flex flex-col w-5/6 self-end gap-4 2xl:justify-center">
                   <div className="flex flex-col gap-2 self-center">
                     <h3 className="text-xl text-ipxonLighterMagenta to-ipxonLightMagenta via-ipxonViolet font-thin uppercase pt-4">
                       Welcome to presence
@@ -396,10 +396,10 @@ export default function LookingGlass() {
                   <div
                     className={`${"bg-ipxonGray p-8 flex justify-center rounded-lg h-96 max-h-96 items-center overflow-auto w-full self-center border-2 border-white border-opacity-10"}`}
                   >
-                    {errorMessage && <ErrorMessage error={errorMessage} />}
+                    {message && <Message text={message} type={"error"} />}
                     {response === "" && (
-                      <ErrorMessage
-                        error={
+                      <Message
+                        text={
                           "Set your commands in order to try our network and services"
                         }
                       />

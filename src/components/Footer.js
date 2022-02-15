@@ -42,7 +42,7 @@ const navigation = [
 
 export const Footer = () => {
   return (
-    <footer className="container mx-auto text-xs h-10vh">
+    <footer className="z-0 container mx-auto text-xs">
       <div className="border-opacity-50 w-full md:flex md:items-center md:justify-between">
         <div className="flex md:order-2 gap-3 w-2/3 justify-end ">
           <div className="flex gap-6 text-center text-gray-400 w-2/3 self-center justify-end pl-6">

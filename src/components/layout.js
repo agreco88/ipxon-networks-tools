@@ -36,10 +36,10 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div className="bg-ipxonBrown h-5vh px-8">
+      <div className="bg-ipxonBrown h-5vh px-8 z-0">
         <div className="container mx-auto flex justify-between items-center h-full">
-          <div className="flex justify-between items-center gap-2">
-            <MailIcon className="h-4" />
+          <div className="flex justify-between items-center gap-2 text-white">
+            <MailIcon className="h-4 text-white" />
             <div className="text-sm font-bold">
               <span className="font-normal text-white">sales@ipxon.com</span>
             </div>
