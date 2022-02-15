@@ -4,6 +4,7 @@ import React, { Fragment } from "react"
 import { Popover, Transition } from "@headlessui/react"
 import { MenuIcon, XIcon } from "@heroicons/react/outline"
 import { StaticImage } from "gatsby-plugin-image"
+import ipxonLogo from "../images/icon-ipxon.svg"
 
 function Header({ siteTitle }) {
   const navigation = [
@@ -19,10 +20,9 @@ function Header({ siteTitle }) {
             <div className="relative pt-2 px-8 md:px-0 z-20 container mx-auto flex items-center self-center text-white">
               <div className="px-3 md:px-0 flex items-center justify-between w-full md:w-auto">
                 <Link to="/" className="relative text-white text-2xl">
-                  <StaticImage
-                    src="../images/icon-ipxon.svg"
-                    alt="IPXON Networks"
-                    layout="fixed"
+                  <img
+                    className="h-16 w-auto self-center ml-1 sm:ml2 md:ml-3 pr-6"
+                    src={ipxonLogo}
                   />
                 </Link>
                 {/* HAMBURGER MENU (CLOSED) */}
