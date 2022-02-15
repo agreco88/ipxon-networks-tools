@@ -218,7 +218,7 @@ export default function LookingGlass() {
             <>
               <form
                 onSubmit={executeCommand}
-                className="flex flex-col gap-8 rounded-lg transition-all 2xl:justify-center p-4 w-full md:w-1/3"
+                className="flex flex-col gap-8 rounded-lg transition-all p-4 w-full md:w-1/3"
               >
                 <div className="radiobuttons flex flex-col gap-3">
                   <label htmlFor="command" className="font-bold">
@@ -382,7 +382,7 @@ export default function LookingGlass() {
               </form>
 
               <div className="flex flex-col gap-8 h-full rounded-lg transition-all w-2/3">
-                <div className="h-full flex flex-col w-5/6 self-end gap-4 2xl:justify-center">
+                <div className="h-full flex flex-col w-5/6 self-end gap-4 ">
                   <div className="flex flex-col gap-2 self-center">
                     <h3 className="text-xl text-ipxonLighterMagenta to-ipxonLightMagenta via-ipxonViolet font-thin uppercase pt-4">
                       Welcome to presence
