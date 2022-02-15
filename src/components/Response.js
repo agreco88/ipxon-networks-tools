@@ -38,7 +38,7 @@ export const Response = ({ commandType, results }) => {
           </svg>
         </button>
       </div>
-      <ul className="text-white text-sm flex flex-col justify-between leading-8 overflow-scroll">
+      <ul className="text-white text-sm flex flex-col justify-between leading-8 overflow-scroll overflow-x-auto">
         {results.map((line, lineIdx) => (
           <li key={lineIdx}>{line}</li>
         ))}
