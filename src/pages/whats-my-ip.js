@@ -21,8 +21,9 @@ const Buttons = () => {
     <div className="flex flex-col justify-center text-white gap-4">
       <div className="flex justify-around mt-8 w-1/2 h-10 rounded-full bg-gray-500 self-center">
         <a
-          href="https://www.teamviewer.com/en-us"
+          href="https://www.teamviewer.com/en-us/download/"
           target="_blank"
+          rel="noreferrer"
           className="flex items-center justify-center gap-2"
         >
           <span>Teamviewer</span>
@@ -40,8 +41,9 @@ const Buttons = () => {
         </a>
         <span className="text-center justify-center text-3xl rounded-full bg-white my-2 w-0.5"></span>
         <a
-          href="https://anydesk.com/en"
+          href="https://anydesk.com/en/downloads/"
           target="_blank"
+          rel="noreferrer"
           className="flex items-center justify-center gap-2"
         >
           <span>AnyDesk</span>
@@ -92,7 +94,7 @@ export default function WhatsMyIp() {
     >
       <Layout>
         <SEO title="What is my IP" />
-        <div className="text-white w-full p-8 md:p-0 mx-auto container justify-center items-center flex flex-col h-70vh">
+        <div className="text-white w-full p-8 md:p-0 mx-auto container justify-center items-center flex flex-col h-80vh">
           <div className="flex flex-col justify-center w-1/2 text-center gap-1 h-96">
             <div className="w-1/2 relative border-b py-2 border-ipxonLighterMagenta justify-center items-center self-center">
               <h2 className="flex flex-col">

@@ -11,17 +11,17 @@ export const Response = ({ commandType, results }) => {
 
   return (
     <div className="result h-full px-1 flex flex-col w-full gap-4 ">
-      <div className="text-4xl flex justify-between uppercase text-white sticky">
+      <div className="text-4xl flex justify-between uppercase text-white sticky border-b pb-4 border-opacity-25">
         <div className="text-3xl font-bold">{commandType} results:</div>
         <button
-          className="Copy button flex justify-end items-center gap-2 pr-4 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta"
+          className={`Copy button flex justify-end items-center gap-2 pr-4 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta`}
           onClick={() => {
             handleCopiedResult()
           }}
         >
-          {copiedResult && (
-            <span className="text-ipxonLightMagenta text-xs ">COPIED</span>
-          )}
+          <span className="focus:text-ipxonLightMagenta text-xs">
+            COPY RESULTS
+          </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6"

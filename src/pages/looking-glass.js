@@ -209,6 +209,7 @@ export default function LookingGlass() {
       style={{
         backgroundImage: `url(${mainBackground})`,
         backgroundSize: `cover`,
+        height: `screen`,
       }}
     >
       <Layout>

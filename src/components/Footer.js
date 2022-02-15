@@ -42,9 +42,9 @@ const navigation = [
 
 export const Footer = () => {
   return (
-    <footer className="z-0 container mx-auto text-xs">
-      <div className="border-opacity-50 w-full md:flex md:items-center md:justify-between">
-        <div className="flex md:order-2 gap-3 w-2/3 justify-end ">
+    <footer className="z-0 h-5vh container mx-auto text-xs">
+      <div className="border-opacity-50 w-full md:flex md:items-center md:justify-between h-full">
+        <div className="flex md:order-2 gap-3 w-1/3 justify-end ">
           <div className="flex gap-6 text-center text-gray-400 w-2/3 self-center justify-end pl-6">
             <div className="flex text-center text-base text-gray-200 self-center">
               <a
@@ -54,7 +54,7 @@ export const Footer = () => {
                 className="flex text-center text-base text-gray-200 self-end"
               >
                 <img
-                  className="h-20 md:h-16 w-auto self-center ml-1 sm:ml2 md:ml-3 pr-6"
+                  className="h-16 md:h-12 w-auto self-center ml-1 sm:ml2 md:ml-3 pr-6"
                   src={CXLogo}
                   alt="Conexum member logo"
                 />
@@ -62,7 +62,7 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex gap-6 md:order-1 w-1/3">
+        <div className="flex gap-6 md:order-1 w-2/3 h-full">
           {/* <img
             className="h-16 w-auto self-center"
             src={ObIsotype}
