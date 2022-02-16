@@ -327,7 +327,7 @@ export default function LookingGlass() {
                           <button
                             onClick={() => getClientIp()}
                             disabled={loadingIp}
-                            className="text-ipxonLightMagenta hover:text-ipxonLighterMagenta"
+                            className="text-ipxonLightMagenta hover:text-ipxonLighterMagenta transition duration-150 ease-in"
                           >
                             Set my own IP
                           </button>
@@ -402,10 +402,10 @@ export default function LookingGlass() {
                     <h3 className="text-xl text-ipxonLighterMagenta to-ipxonLightMagenta via-ipxonViolet font-thin uppercase pt-4">
                       Welcome to presence
                     </h3>
-                    <p className="text-gray-300 w-4/5">
-                      Access an extensive network with more than 20 datacenters
-                      that provide solutions in strategic locations throughout
-                      LATAM.
+                    <p className="text-gray-300 w-2/3">
+                      Access an extensive network with more than 14 datacenters
+                      providing <b>low-latency</b> solutions in strategic
+                      locations throughout LATAM.
                     </p>
                   </div>
                   <div

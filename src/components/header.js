@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import React, { Fragment } from "react"
 import { Popover, Transition } from "@headlessui/react"
 import { MenuIcon, XIcon } from "@heroicons/react/outline"
-import { StaticImage } from "gatsby-plugin-image"
 import ipxonLogo from "../images/icon-ipxon.svg"
 
 function Header({ siteTitle }) {
@@ -23,6 +22,7 @@ function Header({ siteTitle }) {
                   <img
                     className="h-16 w-auto self-center ml-1 sm:ml2 md:ml-3 pr-6"
                     src={ipxonLogo}
+                    alt="IPXON Networks logo"
                   />
                 </Link>
                 {/* HAMBURGER MENU (CLOSED) */}

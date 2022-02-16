@@ -45,9 +45,9 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
               <Listbox.Option key={site.id} value={site}>
                 <>
                   <span
-                    className={`flex gap-2 w-full justify-between items-center truncate py-2 pl-3.5 pr-4`}
+                    className={`flex gap-2 w-full justify-between items-center truncate py-2 pl-3.5 pr-4 cursor-pointer hover:bg-ipxonGray transition duration-150 ease-in`}
                   >
-                    <span className="flex gap-4">
+                    <span className="flex gap-4 ">
                       <Flag
                         className="h-6 w-6"
                         margin="0"
@@ -55,9 +55,7 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
                         key={site.flag}
                       />
 
-                      <span className="self-center cursor-pointer hover:text-ipxonLighterMagenta transition duration-150 ease-in">
-                        {site.desc}{" "}
-                      </span>
+                      <span className="self-center">{site.desc}</span>
                     </span>
 
                     {site.ipv6 ? (

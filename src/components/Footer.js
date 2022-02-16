@@ -40,7 +40,7 @@ const navigation = [
   },
 ]
 
-export const Footer = () => {
+export const Footer = props => {
   return (
     <footer className="z-0 h-5vh container mx-auto text-xs">
       <div className="border-opacity-50 w-full md:flex md:items-center md:justify-between h-full">
@@ -69,7 +69,7 @@ export const Footer = () => {
             alt="OrbitalBase logo"
           /> */}
           <p className="text-gray-400 self-center">
-            Copyright &copy; 2022, IPXON Networks, Inc. All rights reserved.
+            Copyright © {props.year}, IPXON Networks. All rights reserved.
           </p>
         </div>
       </div>

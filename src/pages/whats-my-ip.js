@@ -68,7 +68,6 @@ const Buttons = () => {
 export default function WhatsMyIp() {
   const [loading, setLoading] = useState(true)
   const [ip, setIP] = useState()
-  const [copiedIp, setCopiedIp] = useState()
 
   const getData = async () => {
     const res = await axios.get("https://geolocation-db.com/json/")
@@ -81,7 +80,6 @@ export default function WhatsMyIp() {
   }, [])
 
   function handleCopiedResult() {
-    setCopiedIp(true)
     navigator.clipboard.writeText(ip)
   }
 
@@ -103,7 +101,7 @@ export default function WhatsMyIp() {
                   <span className="flex-1 font-bold text-4xl">
                     {loading ? (
                       <BeatLoader
-                        color={"#FF33AD"}
+                        color={"#FFF"}
                         loading={true}
                         css={override}
                       />
@@ -114,9 +112,15 @@ export default function WhatsMyIp() {
                 </span>
               </h2>
             </div>
-            <div className=" w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out hover:text-ipxonLightMagenta focus:text-ipxonLightMagenta ">
+            <div className=" w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta ">
               <span>Copy and share this info with IPXON Technical Support</span>
-              <DuplicateIcon className="h-8 cursor-pointer" />
+              <div className="flex flex-col">
+                {" "}
+                <DuplicateIcon
+                  className="h-8 cursor-pointer"
+                  onClick={handleCopiedResult}
+                />{" "}
+              </div>
             </div>
             <Buttons />
           </div>

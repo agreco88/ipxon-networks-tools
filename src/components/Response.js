@@ -14,7 +14,7 @@ export const Response = ({ commandType, results }) => {
       <div className="text-4xl flex justify-between uppercase text-white sticky border-b border-white pb-4 border-opacity-20">
         <div className="text-3xl font-bold">{commandType} results:</div>
         <button
-          className={`Copy button flex justify-end items-center gap-2 pr-4 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta`}
+          className={`Copy button flex justify-end items-center gap-2 pr-4 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta  transition duration-150 ease-in`}
           onClick={() => {
             handleCopiedResult()
           }}
