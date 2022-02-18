@@ -19,7 +19,7 @@ const override = css`
 const Buttons = () => {
   return (
     <div className="flex flex-col justify-center text-white gap-4">
-      <div className="flex justify-around mt-8 w-1/2 h-10 rounded-full bg-gray-500 self-center">
+      <div className="flex justify-around mt-8 w-full md:w-1/2 h-10 rounded-full bg-gray-500 self-center">
         <a
           href="https://www.teamviewer.com/en-us/download/"
           target="_blank"
@@ -92,9 +92,9 @@ export default function WhatsMyIp() {
     >
       <Layout>
         <SEO title="What is my IP" />
-        <div className="text-white w-full p-8 md:p-0 mx-auto container justify-center items-center flex flex-col h-80vh">
-          <div className="flex flex-col justify-center w-1/2 text-center gap-1 h-96">
-            <div className="w-1/2 relative border-b py-2 border-ipxonLighterMagenta justify-center items-center self-center">
+        <div className="text-white w-full p-2 md:p-0 mx-auto container justify-center items-center flex flex-col h-80vh">
+          <div className="flex flex-col justify-start md:justify-center w-full md:w-1/2 text-center gap-1 h-96">
+            <div className="md:w-1/2 relative border-b py-2 border-ipxonLighterMagenta justify-center items-center self-center">
               <h2 className="flex flex-col">
                 Your IP address is:
                 <span className="flex">
@@ -112,8 +112,14 @@ export default function WhatsMyIp() {
                 </span>
               </h2>
             </div>
-            <div className=" w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta">
-              <span>Copy and share this info with IPXON Technical Support</span>
+            <div className="md:w-1/2 mt-1 self-center text-xs flex gap-2 items-center justify-around transition duration-500 ease-in-out active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta">
+              <span className="hidden md:flex">
+                Copy and share this info with IPXON Technical Support
+              </span>
+              <span className="visible md:hidden font-bold uppercase text-base">
+                Copy information{" "}
+              </span>
+
               <div className="flex flex-col">
                 {" "}
                 <DuplicateIcon
