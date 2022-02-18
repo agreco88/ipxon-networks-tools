@@ -10,14 +10,12 @@ function classNames(...classes) {
 
 export default function LanguageDropdown() {
   const languages = [
-    { name: "english", code: "US" },
-    { name: "spanish", code: "ES" },
+    { name: "english", code: "EN", flag: "US" },
+    { name: "spanish", code: "ES", flag: "ES" },
   ]
 
-  const [selectedLanguage, setSelectedLanguage] = useState({
-    name: "english",
-    code: "US",
-  })
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0])
+
   return (
     <Menu as="div" className="relative inline-block text-left z-50">
       <div>
@@ -25,10 +23,10 @@ export default function LanguageDropdown() {
           <Flag
             className="h-6 w-6 rounded-lg"
             margin="0"
-            code={selectedLanguage.code}
-            key={selectedLanguage.code}
+            code={selectedLanguage.flag}
+            key={selectedLanguage.name}
           />
-          {selectedLanguage.name.toUpperCase()}
+          {selectedLanguage.code}
           <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
         </Menu.Button>
       </div>
@@ -58,7 +56,7 @@ export default function LanguageDropdown() {
                     <Flag
                       className="h-6 w-6 rounded-lg"
                       margin="0"
-                      code={language.code}
+                      code={language.flag}
                       key={language.code}
                     />
                     {language.name.toUpperCase()}

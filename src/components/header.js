@@ -16,18 +16,18 @@ function Header({ siteTitle }) {
       <Popover>
         {({ open }) => (
           <>
-            <div className="relative pt-2 px-8 md:px-0 z-20 container mx-auto flex items-center self-center text-white">
-              <div className="px-3 md:px-0 flex items-center justify-between w-full md:w-auto">
+            <div className="relative pt-2 md:px-0 z-20 container mx-auto flex items-center self-center text-white">
+              <div className="px-4 md:px-0 flex items-center justify-between w-full md:w-auto">
                 <Link to="/" className="relative text-white text-2xl">
                   <img
-                    className="h-16 w-auto self-center ml-1 sm:ml2 md:ml-3 pr-6"
+                    className="h-16 w-auto self-center"
                     src={ipxonLogo}
-                    alt="IPXON Networks logo"
+                    alt="IPXON Networks"
                   />
                 </Link>
                 {/* HAMBURGER MENU (CLOSED) */}
                 <div className="mr-2  md:hidden">
-                  <Popover.Button className="z-50 bg-gray-800 rounded-md p-2 inline-flex items-center justify-center text-gray-100 hover:text-pink-600 focus:outline-none focus:ring-2 focus-ring-inset focus:ring-gray-200">
+                  <Popover.Button className="z-50 bg-ipxonGray rounded-md p-2 inline-flex items-center justify-center text-gray-100 hover:text-pink-600 focus:outline-none focus:ring-2 focus-ring-inset focus:ring-gray-200">
                     <span className="sr-only">Open navigation menu</span>
                     <MenuIcon className="h-6 w-6" />
                   </Popover.Button>
@@ -76,28 +76,41 @@ function Header({ siteTitle }) {
                 static
                 className="z-50 absolute top-1 inset-x-0 p-2 transition transform origin-top-right md:hidden"
               >
-                <div className="bg-gray-900 rounded-lg shadow-md ring-1 ring-black ring-opacity-5 overflow-hidden">
-                  <div className="px-5 pt-4 flex items-center justify-between">
-                    <div>
-                      {/* <img className="h-8 w-auto" src={logoColor} alt="" /> */}
-                    </div>
-                    <div className="-mr-2">
-                      <Popover.Button className="bg-gray-800 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-200">
-                        <span className="sr-only">Close menu</span>
-                        <XIcon className="h-6 w-6" aria-hidden="true" />
-                      </Popover.Button>
-                    </div>
+                <div className="bg-black rounded-lg shadow-md ring-1 border-white border ring-opacity-5 overflow-hidden">
+                  <div className="p-5 pb-0 flex items-center justify-between">
+                    <img
+                      className="px-4 h-12 w-auto self-center"
+                      src={ipxonLogo}
+                      alt="IPXON Networks"
+                    />
+                    <Popover.Button className="bg-ipxonBrown rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-200">
+                      <span className="sr-only">Close menu</span>
+                      <XIcon className="h-6 w-6" aria-hidden="true" />
+                    </Popover.Button>
                   </div>
-                  <ul className="px-2 pt-2 pb-3 space-y-1">
+                  <ul className="p-5 h-32 flex flex-col justify-around">
                     {navigation.map(item => (
-                      <li key={item.name}>
-                        <a
-                          href={item.to}
-                          className="block uppercase px-3 py-4 rounded-md text-base font-medium text-gray-50 hover:bg-gray-700"
+                      <Link
+                        to={item.to}
+                        className="
+                          transition duration-500 ease-in-out
+                          text-sm
+                          font-thin
+                          uppercase
+                          text-gray-200
+                          hover:border-ipxonLighterMagenta
+                          active:text-ipxonLighterMagenta
+                          focus:text-ipxonLighterMagenta  
+                        "
+                        activeClassName="text-ipxonLighterMagenta"
+                      >
+                        <li
+                          key={item.name}
+                          className="hover:bg-ipxonGray px-4 w-full items-center flex rounded-lg hover:bg-opacity-50 h-10 transition-all duration-200 ease-in-out cursor-pointer"
                         >
                           {item.name}
-                        </a>
-                      </li>
+                        </li>
+                      </Link>
                     ))}
                   </ul>
                 </div>

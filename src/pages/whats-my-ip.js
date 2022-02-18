@@ -112,7 +112,7 @@ export default function WhatsMyIp() {
                 </span>
               </h2>
             </div>
-            <div className=" w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta ">
+            <div className=" w-1/2 mt-1 self-center text-xs flex items-center justify-around transition duration-500 ease-in-out active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta">
               <span>Copy and share this info with IPXON Technical Support</span>
               <div className="flex flex-col">
                 {" "}

@@ -220,12 +220,12 @@ export default function LookingGlass() {
     >
       <Layout>
         <SEO title="Looking glass" />
-        <div className="z-50 text-white p-8 md:p-0 flex h-80vh flex-col gap-4 md:flex-row container mx-auto w-full overflow-hidden">
+        <div className="z-50 text-white p-0 flex h-full md:h-80vh flex-col gap-4 md:flex-row container mx-auto w-full overflow-hidden">
           {sites && (
             <>
               <form
                 onSubmit={executeCommand}
-                className="flex flex-col gap-8 rounded-lg transition-all p-4 w-full md:w-1/3"
+                className="flex flex-col gap-8 rounded-lg transition-all p-4 w-full md:w-1/3 order-1"
               >
                 <div className="radiobuttons flex flex-col gap-3">
                   <label htmlFor="command" className="font-bold">
@@ -379,7 +379,7 @@ export default function LookingGlass() {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex flex-col md:flex-row items-center justify-center md:justify-start">
                   <ReCAPTCHA
                     sitekey="6Lcyv9gdAAAAAJ1s607OJy87WKY2g0s8xdufNRSW"
                     onChange={onCaptchaChange}
@@ -387,8 +387,8 @@ export default function LookingGlass() {
                   />
                   {captchatoken === "" && (
                     <div className="w-full justify-evenly gap-1 flex items-center animate-pulse text-ipxonLightMagenta text-sm font-thin transition-all duration-500">
-                      <ChevronDoubleLeftIcon className="h-6 w-1/3" />
-                      <span className="text-center w-full">
+                      <ChevronDoubleLeftIcon className="h-6 w-1/3 hidden md:flex" />
+                      <span className="text-center w-full my-4 md:my-0 uppercase">
                         Captcha required
                       </span>
                     </div>
@@ -396,20 +396,20 @@ export default function LookingGlass() {
                 </div>
               </form>
 
-              <div className="flex flex-col gap-8 h-full rounded-lg transition-all w-2/3">
-                <div className="h-full flex flex-col w-5/6 self-end gap-4 ">
+              <div className="flex flex-col gap-8 h-full rounded-lg transition-all  order-1 pt-0 p-2 md:p-4">
+                <div className="h-full flex flex-col md:w-5/6 self-center md:self-end gap-4 ">
                   <div className="flex flex-col gap-2 self-center">
-                    <h3 className="text-xl text-ipxonLighterMagenta to-ipxonLightMagenta via-ipxonViolet font-thin uppercase pt-4">
+                    <h3 className="text-xl text-ipxonLighterMagenta to-ipxonLightMagenta via-ipxonViolet font-thin uppercase pt-4 hidden md:flex">
                       Welcome to presence
                     </h3>
-                    <p className="text-gray-300 w-2/3">
+                    <p className="text-gray-300 text-sm md:text-base md:w-5/6 pt-4 pb-8 px-4 md:px-0 md:py-0">
                       Access an extensive network with more than 14 datacenters
                       providing <b>low-latency</b> solutions in strategic
                       locations throughout LATAM.
                     </p>
                   </div>
                   <div
-                    className={`${"bg-ipxonGray p-8 flex justify-center rounded-lg h-96 max-h-96 items-center overflow-auto w-full self-center border-2 border-white border-opacity-10"}`}
+                    className={`${"bg-ipxonGray p-4 md:p-8 flex justify-center rounded-lg h-96 md:h-full md:max-h-96 items-center overflow-auto w-full self-center border-2 border-white border-opacity-10"}`}
                   >
                     {message && <Message text={message} type={"error"} />}
                     {response === "" && message === "" && (
@@ -441,7 +441,9 @@ export default function LookingGlass() {
                       className={`
                       flex items-center
                       justify-center
-                      w-3/12 
+                      w-full
+                      mb-20 md:mb-0
+                      md:w-3/12 
                       uppercase bg-transparent 
                       font-bold  
                       hover:bg-transparent border 

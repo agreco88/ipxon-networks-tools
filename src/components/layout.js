@@ -36,8 +36,8 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div className="bg-ipxonBrown h-5vh px-8 z-0">
-        <div className="container mx-auto flex justify-between items-center h-full">
+      <div className=" bg-ipxonBrown h-5vh px-4 z-0">
+        <div className="flex justify-between items-center h-full mx-auto container">
           <div className="flex justify-between items-center gap-2 text-white">
             <MailIcon className="h-4 text-white" />
             <div className="text-sm font-bold">
@@ -45,13 +45,15 @@ const Layout = ({ children }) => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <label className="uppercase text-sm text-white">Language:</label>
+            <label className="uppercase text-sm text-white hidden md:flex">
+              Language:
+            </label>
             <LanguageDropdown />
           </div>
         </div>
       </div>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <main>{children}</main>
+      <main className="mt-16 md:pt-0">{children}</main>
       <Footer year={year} />
     </>
   )

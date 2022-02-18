@@ -10,18 +10,18 @@ export const Response = ({ commandType, results }) => {
   }
 
   return (
-    <div className="result h-full px-1 flex flex-col w-full gap-4 ">
+    <div className="result h-full px-1 flex flex-col w-full gap-4">
       <div className="text-4xl flex justify-between uppercase text-white sticky border-b border-white pb-4 border-opacity-20">
-        <div className="text-3xl font-bold">{commandType} results:</div>
+        <div className="text-xl md:text-3xl font-bold">
+          {commandType} results:
+        </div>
         <button
           className={`Copy button flex justify-end items-center gap-2 pr-4 active:text-ipxonLightMagenta focus:text-ipxonLightMagenta hover:text-ipxonLighterMagenta  transition duration-150 ease-in`}
           onClick={() => {
             handleCopiedResult()
           }}
         >
-          <span className="focus:text-ipxonLightMagenta text-xs">
-            COPY RESULTS
-          </span>
+          <span className="focus:text-ipxonLightMagenta text-xs">COPY</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6"
@@ -38,7 +38,7 @@ export const Response = ({ commandType, results }) => {
           </svg>
         </button>
       </div>
-      <ul className="text-white text-sm flex flex-col justify-between leading-8 overflow-scroll overflow-x-auto">
+      <ul className="text-white text-sm md:text-base flex flex-col justify-between md:leading-8 overflow-scroll overflow-x-auto">
         {results.map((line, lineIdx) => (
           <li key={lineIdx}>{line}</li>
         ))}
