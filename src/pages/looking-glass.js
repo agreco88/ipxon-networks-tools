@@ -361,12 +361,10 @@ export default function LookingGlass() {
 
                       {command && captchatoken && site && destination ? (
                         <button
-                          disabled={"enabled"}
+                          disabled={loading && "enabled"}
                           className="bg-ipxonLightMagenta transition-all duration-500 hover:bg-ipxonLighterMagenta hover:border-ipxonLighterMagenta h-full w-3/5 border-2 border-ipxonLightMagenta justify-center rounded-r-full flex items-center cursor-pointer"
                         >
-                          {/* <AnchorLink to="/looking-glass#footer"> */}
                           EXECUTE
-                          {/* </AnchorLink> */}
                         </button>
                       ) : (
                         <button
@@ -379,18 +377,16 @@ export default function LookingGlass() {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col md:flex-row items-center justify-center md:justify-start">
+                <div className="flex flex-col md:flex-row justify-start">
                   <ReCAPTCHA
                     sitekey="6Lcyv9gdAAAAAJ1s607OJy87WKY2g0s8xdufNRSW"
                     onChange={onCaptchaChange}
                     theme="dark"
                   />
                   {captchatoken === "" && (
-                    <div className="w-full justify-evenly gap-1 flex items-center animate-pulse text-ipxonLightMagenta text-sm font-thin transition-all duration-500">
+                    <div className="w-full md:justify-evenly gap-1 p-4 flex items-center animate-pulse text-ipxonLightMagenta text-sm font-thin transition-all duration-500">
                       <ChevronDoubleLeftIcon className="h-6 w-1/3 hidden md:flex" />
-                      <span className="text-center w-full my-4 md:my-0 uppercase">
-                        Captcha required
-                      </span>
+                      <span className="uppercase">Captcha required</span>
                     </div>
                   )}
                 </div>
