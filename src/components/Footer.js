@@ -42,7 +42,7 @@ const navigation = [
 
 export const Footer = props => {
   return (
-    <footer className="z-0 container vh-5 mx-auto text-xs h-full">
+    <footer id="footer" className="z-0 container md:h-5vh mx-auto text-xs">
       <div className="border-opacity-50 w-full md:flex md:items-center md:justify-between h-full">
         <div className="flex w-full md:w-2/3 justify-center md:justify-start h-full">
           <p className="text-gray-400">

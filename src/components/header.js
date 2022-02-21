@@ -91,6 +91,7 @@ function Header({ siteTitle }) {
                   <ul className="p-5 h-32 flex flex-col justify-around">
                     {navigation.map(item => (
                       <Link
+                        key={item.name}
                         to={item.to}
                         className="
                           transition duration-500 ease-in-out
@@ -104,10 +105,7 @@ function Header({ siteTitle }) {
                         "
                         activeClassName="text-ipxonLighterMagenta"
                       >
-                        <li
-                          key={item.name}
-                          className="hover:bg-ipxonGray px-4 w-full items-center flex rounded-lg hover:bg-opacity-50 h-10 transition-all duration-200 ease-in-out cursor-pointer"
-                        >
+                        <li className="hover:bg-ipxonGray px-4 w-full items-center flex rounded-lg hover:bg-opacity-50 h-10 transition-all duration-200 ease-in-out cursor-pointer">
                           {item.name}
                         </li>
                       </Link>

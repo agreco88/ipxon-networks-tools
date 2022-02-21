@@ -19,6 +19,7 @@ import { ChevronDoubleLeftIcon } from "@heroicons/react/outline"
 import { css } from "@emotion/react"
 import { Response } from "../components/Response"
 import mainBackground from "../images/bg-ipxon.svg"
+import { AnchorLink } from "gatsby-plugin-anchor-links"
 
 const override = css`
   display: block;
@@ -59,7 +60,6 @@ export default function LookingGlass() {
       .then(response => {
         setSites(response.data)
         setDropdownSites(response.data)
-        console.log("Fetched sites:", response.data)
       })
       .catch(error => {
         console.log(error)
@@ -84,7 +84,6 @@ export default function LookingGlass() {
             }
           )
           .then(response => {
-            console.log("Ping response:", response.data.result)
             setResponse(response.data.result)
             setLoading(false)
           })
@@ -114,7 +113,6 @@ export default function LookingGlass() {
             }
           )
           .then(response => {
-            console.log("MTR response:", response.data.result)
             setResponse(response.data.result)
             setLoading(false)
           })
@@ -144,7 +142,6 @@ export default function LookingGlass() {
             }
           )
           .then(response => {
-            console.log("Traceroute response:", response.data.result)
             setResponse(response.data.result)
             setLoading(false)
           })
@@ -226,6 +223,7 @@ export default function LookingGlass() {
               <form
                 onSubmit={executeCommand}
                 className="flex flex-col gap-8 rounded-lg transition-all p-4 w-full md:w-1/3 order-1"
+                id="form"
               >
                 <div className="radiobuttons flex flex-col gap-3">
                   <label htmlFor="command" className="font-bold">
@@ -363,17 +361,19 @@ export default function LookingGlass() {
 
                       {command && captchatoken && site && destination ? (
                         <button
-                          disabled={loading && "disabled"}
+                          disabled={"enabled"}
                           className="bg-ipxonLightMagenta transition-all duration-500 hover:bg-ipxonLighterMagenta hover:border-ipxonLighterMagenta h-full w-3/5 border-2 border-ipxonLightMagenta justify-center rounded-r-full flex items-center cursor-pointer"
                         >
+                          {/* <AnchorLink to="/looking-glass#footer"> */}
                           EXECUTE
+                          {/* </AnchorLink> */}
                         </button>
                       ) : (
                         <button
                           disabled="disabled"
                           className="bg-gray-800 w-3/5 h-full border black disabled justify-center rounded-r-full flex items-center"
                         >
-                          <span className="opacity-25">EXECUTE</span>
+                          <span className="opacity-20">EXECUTE</span>
                         </button>
                       )}
                     </div>
@@ -446,10 +446,11 @@ export default function LookingGlass() {
                       md:w-3/12 
                       uppercase bg-transparent 
                       font-bold  
-                      hover:bg-transparent border 
-                      hover:bg-white 
+                      hover:bg-transparent border
+                      text-ipxonLighterMagenta md:text-gray-200
+                      bg-white md:bg-transparent hover:bg-white
                       hover:text-ipxonLighterMagenta 
-                      text-gray-200 border-gray-200 
+                      border-gray-200 
                       h-10 rounded-full 
                       transition duration-500 ease-in-out
                       self-end
