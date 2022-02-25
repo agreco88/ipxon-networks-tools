@@ -20,6 +20,13 @@ module.exports = {
         "80vh": "80vh",
         "90vh": "90vh",
       },
+      maxWidth: {
+        "5/6": "83.333%",
+        "4/6": "66.666667%",
+        "1/4": "25%",
+        "1/3": "33.3%",
+        "1/2": "50%",
+      },
       colors: {
         transparent: "transparent",
         current: "currentColor",

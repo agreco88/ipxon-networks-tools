@@ -16,15 +16,19 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
                 code={site.flag}
                 key={site.flag}
               />
-              {site.desc}{" "}
+              <span className="self-center truncate text-xs md:text-base">
+                {site.desc}
+              </span>
             </span>
 
             {site.ipv6 ? (
-              <span className="flex bg-clip-text text-ipxonLightMagenta font-thin">
-                IPV6
+              <span className="flex items-center text-sm bg-clip-text text-ipxonLighterMagenta font-thin">
+                IPv4 - IPv6
               </span>
             ) : (
-              <span className="flex"></span>
+              <span className="flex items-center text-sm text-ipxonLightMagenta font-thin">
+                IPv4
+              </span>
             )}
           </span>
           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -45,9 +49,9 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
               <Listbox.Option key={site.id} value={site}>
                 <>
                   <span
-                    className={`flex gap-2 w-full justify-between items-center truncate py-2 pl-3.5 pr-4 cursor-pointer hover:bg-ipxonGray transition duration-150 ease-in`}
+                    className={`flex gap-2 justify-between items-center truncate p-2 md:px-4 cursor-pointer hover:bg-ipxonGray transition duration-150 ease-in`}
                   >
-                    <span className="flex gap-4 ">
+                    <span className="flex gap-1 max-w-4/6">
                       <Flag
                         className="h-6 w-6"
                         margin="0"
@@ -55,15 +59,19 @@ export default function Dropdown({ sites, site, onChangeHandler }) {
                         key={site.flag}
                       />
 
-                      <span className="self-center">{site.desc}</span>
+                      <span className="self-center truncate text-xs md:text-base">
+                        {site.desc}
+                      </span>
                     </span>
 
                     {site.ipv6 ? (
-                      <span className="flex bg-clip-text text-ipxonLightMagenta font-thin">
-                        IPV6
+                      <span className="flex items-center text-xs bg-clip-text text-ipxonLighterMagenta font-thin">
+                        IPv4 - IPv6
                       </span>
                     ) : (
-                      <span className="flex"></span>
+                      <span className="flex items-center text-xs text-ipxonLightMagenta self-end">
+                        IPv4
+                      </span>
                     )}
                   </span>
                 </>

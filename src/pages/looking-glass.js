@@ -159,7 +159,6 @@ export default function LookingGlass() {
           })
         break
       default:
-      // code block
     }
   }
 
@@ -221,7 +220,7 @@ export default function LookingGlass() {
           {sites && (
             <>
               <form
-                onSubmit={executeCommand}
+                // onSubmit={executeCommand}
                 className="flex flex-col gap-8 rounded-lg transition-all p-4 w-full md:w-1/3 order-1"
                 id="form"
               >
@@ -360,12 +359,18 @@ export default function LookingGlass() {
                       )}
 
                       {command && captchatoken && site && destination ? (
-                        <button
-                          disabled={loading && "enabled"}
+                        <AnchorLink
+                          to={"/looking-glass/#result"}
                           className="bg-ipxonLightMagenta transition-all duration-500 hover:bg-ipxonLighterMagenta hover:border-ipxonLighterMagenta h-full w-3/5 border-2 border-ipxonLightMagenta justify-center rounded-r-full flex items-center cursor-pointer"
                         >
-                          EXECUTE
-                        </button>
+                          <button
+                            onClick={executeCommand}
+                            disabled={loading && "enabled"}
+                            className="bg-red-300 w-full h-full rounded-r-full"
+                          >
+                            EXECUTE
+                          </button>
+                        </AnchorLink>
                       ) : (
                         <button
                           disabled="disabled"
@@ -392,7 +397,7 @@ export default function LookingGlass() {
                 </div>
               </form>
 
-              <div className="flex flex-col gap-8 h-full rounded-lg transition-all  order-1 pt-0 p-2 md:p-4">
+              <div className="flex flex-col gap-8 h-full rounded-lg transition-all max-w-5xl order-1 pt-0 p-2 md:p-4">
                 <div className="h-full flex flex-col md:w-5/6 self-center md:self-end gap-4 ">
                   <div className="flex flex-col gap-2 self-center">
                     <h3 className="text-xl text-ipxonLighterMagenta to-ipxonLightMagenta via-ipxonViolet font-thin uppercase pt-4 hidden md:flex">
@@ -405,7 +410,8 @@ export default function LookingGlass() {
                     </p>
                   </div>
                   <div
-                    className={`${"bg-ipxonGray p-4 md:p-8 flex justify-center rounded-lg h-96 md:h-full md:max-h-96 items-center overflow-auto w-full self-center border-2 border-white border-opacity-10"}`}
+                    id="result"
+                    className="bg-ipxonGray w-full p-4 md:p-8 flex justify-center rounded-lg h-96 md:h-full md:max-h-96 items-center overflow-auto self-center border-2 border-white border-opacity-10"
                   >
                     {message && <Message text={message} type={"error"} />}
                     {response === "" && message === "" && (
