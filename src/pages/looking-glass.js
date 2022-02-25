@@ -366,7 +366,7 @@ export default function LookingGlass() {
                           <button
                             onClick={executeCommand}
                             disabled={loading && "enabled"}
-                            className="bg-red-300 w-full h-full rounded-r-full"
+                            className="w-full h-full rounded-r-full"
                           >
                             EXECUTE
                           </button>
